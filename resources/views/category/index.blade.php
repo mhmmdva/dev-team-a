@@ -33,6 +33,5 @@
             {{-- end --}}
         </div>
     @endforeach
-    
     {{-- end cards --}}
 @endsection
