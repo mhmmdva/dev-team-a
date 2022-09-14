@@ -1,6 +1,21 @@
 @extends('layouts.app')
 
 @section('script')
+    {{-- select2 --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
+
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2({
+                placeholder: "Select tags",
+                tags: true,
+            });
+        });
+     </script>
+
+    {{-- ckeditor --}}
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script>
         CKEDITOR.replace('content');
@@ -12,7 +27,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1 class="mb-3" style="font-weight: 700;">Create Post</h1>
-                <form method="POST" action="#" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-body">
@@ -56,16 +71,16 @@
                                 <label for="category_id">Category</label>
 
                                 <div class="col-md">
-                                    <select name="category_id" id="category_id" class="form-control" required>
-                                        <option value="0">--- SELECT CATEGORY ---</option>
-                                        {{-- @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}"
-                                                @if ($category->id == old('categories')) selected @endif>{{ $category->name }}
+                                    <select name="category_id" id="category_id" class="form-select" required>
+                                        <option selected>--- SELECT CATEGORY ---</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">
+                                                {{ $category->name }}
                                             </option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
 
-                                    @error('category')
+                                    @error('category_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -75,12 +90,17 @@
 
                             {{-- tag --}}
                             <div class="row mb-3 mx-5">
-                                <label for="tag_id">Tags</label>
+                                <label for="tags">Tags</label>
 
                                 <div class="col-md">
-                                    <input name="tag_id" id="tag_id"class="form-control @error('tags') is-invalid @enderror" required>
+                                    <select class="form-select select2" name="tags[]" multiple="multiple">
+                                        @foreach ($tags as $tag)
+                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                @error('tag')
+
+                                @error('tags')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -118,13 +138,4 @@
                 {{-- </div> --}}
             </div>
         </div>
-    @endsection
-
-    {{-- CKEditor CDN --}}
-    @section('script')
-        <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
-        <script>
-            ClassicEditor
-                .create(document.querySelector('#content'));
-        </script>
     @endsection

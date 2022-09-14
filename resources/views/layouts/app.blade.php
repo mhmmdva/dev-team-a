@@ -19,6 +19,7 @@
                 </ul>
 
                 <div class="col-md-3 text-end btn-right">
+                    <a type="button" style="color: white; text-decoration:none" href="{{ route('posts.create') }}">Create Post</a>
                     <button type="button" class="btn btn-profile ">Profile</button>
                     <button type="button" class="badge btn btn-outline-light">
 
