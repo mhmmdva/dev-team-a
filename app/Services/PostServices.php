@@ -22,35 +22,47 @@ class PostServices
         }
 
         $post = Post::create($data);
-        foreach ($request->tags as $tagName) {
-            $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $post->tags()->attach($tag);
+
+        foreach ($request->tags as $currentTag) {
+            $param = [];
+            if (Tag::find($currentTag) == null) {
+                $param = ['name' => $currentTag];
+            } else {
+                $param = ['id' => $currentTag];
+            }
+            $tag = Tag::firstOrCreate($param);
+            $post->tags()->attach($tag->id);
         }
     }
 
-    // public function handleUpdate($request, $post)
-    // {
-    //     $data = $request->validated();
+    public function handleUpdate($request, $post)
+    {
+        $data = $request->validated();
 
-    //     $data['user_id'] = auth()->id();
-    //     $data['slug'] = str()->slug($data['title']);
+        $data['user_id'] = auth()->id();
+        $data['slug'] = str()->slug($data['title']);
 
-    //     if ($request->hasFile('image')) {
-    //         if (!is_null($post->image)) {
-    //             Storage::delete($post->image);
-    //         }
-    //         $image = $request->file('image')->store('images/post');
-    //         $data['image'] = $image;
-    //     }
+        if ($request->hasFile('image')) {
+            if (!is_null($post->image)) {
+                Storage::delete($post->image);
+            }
+            $image = $request->file('image')->store('images/post');
+            $data['image'] = $image;
+        }
 
-    //     $post->update($data);
-    // }
+        $newTags = [];
+        foreach ($request->tags as $currentTag) {
+            $param = [];
+            if (Tag::find($currentTag) == null) {
+                $param = ['name' => $currentTag];
+            } else {
+                $param = ['id' => $currentTag];
+            }
+            $tag = Tag::firstOrCreate($param);
+            array_push($newTags, $tag->id);
+        }
+        $post->tags()->sync($newTags);
 
-    // public function handleDestroy($post)
-    // {
-    //     if (!is_null($post->image)) {
-    //         Storage::delete($post->image);
-    //     }
-    //     $post->delete();
-    // }
+        $post->update($data);
+    }
 }
