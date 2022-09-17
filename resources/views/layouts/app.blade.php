@@ -75,6 +75,7 @@
 
 
     @extends('layouts.footer')
+    @stack('script')
 </body>
 
 </html>

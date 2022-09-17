@@ -66,7 +66,7 @@ class User extends Authenticatable
         if ($this->photo != null) {
             return Storage::url($this->photo);
         } else {
-            return null;
+            return asset('assets/users/images/default-profile-photo.jpg');
         }
     }
 }

@@ -118,11 +118,15 @@
     </div>
 @endsection
 
-@section('script')
+@push('head')
+    {{-- select2 --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
+@endpush
+
+@push('script')
     {{-- select2 --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
 
     <script>
         $(document).ready(function () {
@@ -133,48 +137,9 @@
         });
      </script>
 
-@section('script')
-     <style>
-        .select2-container--default .select2-selection--single {
-            background-color: #00f !important;
-        }
-     </style>
-
-    <script>
-        function getColor(){
-            return "hsl(" + 360 * Math.random() + ',' +
-                    (25 + 70 * Math.random()) + '%,' +
-                    (85 + 10 * Math.random()) + '%)'
-        }
-    </script>
-
-    {{-- select2 --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
-
-    <script>
-        $(document).ready(function () {
-            // var colors = ${getColor()};
-            $(".select2").select2({
-                placeholder: "Select tags",
-                tags: true,
-            });
-
-            // var selections = $(".select2-selection__choice");
-        });
-     </script>
-
     {{-- ckeditor --}}
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script>
         CKEDITOR.replace('content');
     </script>
-@endsection
-
-    {{-- ckeditor --}}
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace('content');
-    </script>
-@endsection
+@endpush

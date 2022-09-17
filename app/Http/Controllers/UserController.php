@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,6 +23,25 @@ class UserController extends Controller
     public function editProfile(User $user)
     {
         return view('profile.edit-profile', compact('user'));
+    }
+
+    public function changeProfilePhoto(Request $request, User $user)
+    {
+        if ($request->hasFile('photo')) {
+            if (!is_null($user->photo)) {
+                Storage::delete($user->photo);
+            }
+            $photo = $request->file('photo')->store('public/images/profile');
+            $data['photo'] = $photo;
+        }
+
+        $upload = $user->update($data);
+
+        if ($upload) {
+            return response()->json(['status' => 1, 'msg' => "Your profile picture has been successfully updated."]);
+        } else {
+            return response()->json(['status' => 0, 'msg' => "Something went wrong."]);
+        }
     }
 
     // update user profile
