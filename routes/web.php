@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,4 +37,10 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/posts/{post:slug}/update', [PostController::class, 'update'])->name('posts.update');
 
     Route::resource('/category', CategoryController::class);
+
+    Route::get('/{user:username}', [UserController::class, 'show'])->name('profile.show');
+    Route::get('/{user:username}/edit-profile', [UserController::class, 'editProfile'])->name('profile.edit-profile');
+    Route::patch('/{user:username}/update-profile', [UserController::class, 'updateProfile'])->name('profile.update-profile');
+    Route::get('/{user:username}/edit-password', [UserController::class, 'editPassword'])->name('profile.edit-password');
+    Route::patch('/{user:username}/update-password', [UserController::class, 'updatePassword'])->name('profile.update-password');
 });

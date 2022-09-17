@@ -10,7 +10,7 @@
                 </a>
 
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 navbars-link">
-                    <li><a href="#" class="nav-link active">Home</a></li>
+                    <li><a href="{{ route('home') }}" class="nav-link active">Home</a></li>
                     <li><a href="#" class="nav-link">Features</a></li>
                     <li><a href="#" class="nav-link">Pricing</a></li>
                     <li><a href="#" class="nav-link">FAQs</a></li>
@@ -18,8 +18,9 @@
                 </ul>
 
                 <div class="col-md-3 text-end btn-right">
-                    <a type="button" style="color: white; text-decoration:none" href="{{ route('posts.create') }}">Create Post</a>
-                    <button type="button" class="btn btn-profile ">Profile</button>
+                    <a type="button" class="btn" style="color: white;" href="{{ route('posts.create') }}">Create Post</a>
+                    <a type="button" class="btn" style="color: white;" href="{{ route('profile.show', auth()->user()->username) }}">Profile</a>
+
                     <button type="button" class="badge btn btn-outline-light">
 
                         <ul class="navbar-nav ms-auto">

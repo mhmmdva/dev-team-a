@@ -1,27 +1,5 @@
 @extends('layouts.app')
 
-@section('script')
-    {{-- select2 --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
-
-    <script>
-        $(document).ready(function () {
-            $(".select2").select2({
-                placeholder: "Select tags",
-                tags: true,
-            });
-        });
-     </script>
-
-    {{-- ckeditor --}}
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace('content');
-    </script>
-@endsection
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -93,7 +71,7 @@
                                 <label for="tags">Tags</label>
 
                                 <div class="col-md">
-                                    <select class="form-select select2" name="tags[]" multiple="multiple">
+                                    <select class="form-select select2 select2-container--default .select2-selection--single" name="tags[]" multiple="multiple">
                                         @foreach ($tags as $tag)
                                         <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                         @endforeach
@@ -135,7 +113,68 @@
                         </div>
                     </div>
                 </form>
-                {{-- </div> --}}
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
+
+@section('script')
+    {{-- select2 --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
+
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2({
+                placeholder: "Select tags",
+                tags: true,
+            });
+        });
+     </script>
+
+@section('script')
+     <style>
+        .select2-container--default .select2-selection--single {
+            background-color: #00f !important;
+        }
+     </style>
+
+    <script>
+        function getColor(){
+            return "hsl(" + 360 * Math.random() + ',' +
+                    (25 + 70 * Math.random()) + '%,' +
+                    (85 + 10 * Math.random()) + '%)'
+        }
+    </script>
+
+    {{-- select2 --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
+
+    <script>
+        $(document).ready(function () {
+            // var colors = ${getColor()};
+            $(".select2").select2({
+                placeholder: "Select tags",
+                tags: true,
+            });
+
+            // var selections = $(".select2-selection__choice");
+        });
+     </script>
+
+    {{-- ckeditor --}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+@endsection
+
+    {{-- ckeditor --}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+@endsection

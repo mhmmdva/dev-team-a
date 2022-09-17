@@ -1,27 +1,5 @@
 @extends('layouts.app')
 
-@section('script')
-    {{-- select2 --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
-
-    <script>
-        $(document).ready(function() {
-            $(".select2").select2({
-                placeholder: "Select tags",
-                tags: true,
-            });
-        });
-    </script>
-
-    {{-- ckeditor --}}
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace('content');
-    </script>
-@endsection
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -142,11 +120,33 @@
                                     style="width: 12rem; height:3rem; background-color: white; border-color:#4F6EAC; color:#4F6EAC">
                             </form>
                             <button type="submit" class="btn btn-primary"
-                                style="width: 12rem; height:3rem; background-color: #4F6EAC; border-color:#4F6EAC">Post</button>
+                                style="width: 12rem; height:3rem; background-color: #4F6EAC; border-color:#4F6EAC">Update</button>
                         </div>
                     </div>
                 </form>
-                {{-- </div> --}}
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
+
+    @section('script')
+    {{-- select2 --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function() {
+            $(".select2").select2({
+                placeholder: "Select tags",
+                tags: true,
+            });
+        });
+    </script>
+
+    {{-- ckeditor --}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+@endsection
