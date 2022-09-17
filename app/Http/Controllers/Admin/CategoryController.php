@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -17,6 +19,8 @@ class CategoryController extends Controller
     public function index()
     {
         return view('category.index', [
+            'title' => 'Category',
+            'active' => 'Category',
             'category' => Category::get(),
         ]);
     }
@@ -28,7 +32,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create');
+        return view('category.create', [
+            'title' => 'Category Create',
+            'active' => 'Category',
+            'category' => Category::get(),
+        ]);
     }
 
     /**
@@ -86,8 +94,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category, Post $post)
     {
-        //
+        Storage::delete($post->image);
+        $post->delete();
+
+        return redirect()->route('category.index');
     }
 }

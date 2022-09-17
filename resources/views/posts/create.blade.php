@@ -71,9 +71,11 @@
                                 <label for="tags">Tags</label>
 
                                 <div class="col-md">
-                                    <select class="form-select select2 select2-container--default .select2-selection--single" name="tags[]" multiple="multiple">
+                                    <select
+                                        class="form-select select2 select2-container--default .select2-selection--single"
+                                        name="tags[]" multiple="multiple">
                                         @foreach ($tags as $tag)
-                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -115,8 +117,6 @@
                 </form>
             </div>
         </div>
-    </div>
-@endsection
 
 @push('head')
     {{-- select2 --}}

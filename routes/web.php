@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,29 +20,49 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 
-
-
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts/{post:slug}/edit', [PostController::class, 'edit'])->name('posts.edit');
-    Route::patch('/posts/{post:slug}/update', [PostController::class, 'update'])->name('posts.update');
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+    Route::prefix('users')->controller(UserController::class)->name('profile.')->group(function () {
+        Route::get('/about', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/show', 'showList')->name('show-list');
+        Route::get('/{user:username}', 'showProfile')->name('show-profile');
+        Route::get('/{user:username}/edit-profile', 'editProfile')->name('edit-profile');
+        Route::patch('/{user:username}/update-profile', 'updateProfile')->name('update-profile');
+        Route::get('/{user:username}/edit-password', 'editPassword')->name('edit-password');
+        Route::patch('/{user:username}/update-password', 'updatePassword')->name('update-password');
+        Route::post('/{user:username}/change-profile-photo', 'changeProfilePhoto')->name('change-profile-photo');
+    });
+
+
+    Route::prefix('posts')->controller(PostController::class)->name('posts.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        //Route::get('/show', 'show')->name('show');
+        Route::get('/{post:slug}/edit', 'edit')->name('edit');
+        Route::patch('/{post:slug}/update', 'update')->name('update');
+        //Route::delete('/{posts}', 'destroy')->name('destroy');
+    });
+
+    Route::prefix('tags')->controller(TagController::class)->name('tags.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/show', 'show')->name('show');
+        Route::get('/{tags}/edit', 'edit')->name('edit');
+        Route::patch('/{tags}', 'update')->name('update');
+        Route::delete('/{tags}', 'destroy')->name('destroy');
+    });
 
     Route::resource('/category', CategoryController::class);
-
-    Route::get('/{user:username}', [UserController::class, 'show'])->name('profile.show');
-    Route::get('/{user:username}/edit-profile', [UserController::class, 'editProfile'])->name('profile.edit-profile');
-    Route::patch('/{user:username}/update-profile', [UserController::class, 'updateProfile'])->name('profile.update-profile');
-    Route::get('/{user:username}/edit-password', [UserController::class, 'editPassword'])->name('profile.edit-password');
-    Route::patch('/{user:username}/update-password', [UserController::class, 'updatePassword'])->name('profile.update-password');
-    Route::post('/{user:username}/change-profile-photo', [UserController::class, 'changeProfilePhoto'])->name('profile.change-profile-photo');
 });
+
+require __DIR__ . '/auth.php';

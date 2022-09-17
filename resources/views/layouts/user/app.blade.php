@@ -1,4 +1,4 @@
-@extends('layouts.main.header')
+@extends('layouts.header')
 
 <body>
     <html>
