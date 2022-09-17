@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
@@ -18,20 +20,47 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 
-
-
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-    Route::resource('/category', CategoryController::class);
+    Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
+        Route::get('/about', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+
+        //Route::get('/show', 'show')->name('show');
+        //Route::get('/{users}/edit', 'edit')->name('edit');
+        //Route::put('/{users}', 'update')->name('update');
+        //Route::delete('/{users}', 'destroy')->name('destroy');
+    });
+
+    Route::prefix('posts')->controller(PostController::class)->name('posts.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+
+        //Route::get('/show', 'show')->name('show');
+        //Route::get('/{posts}/edit', 'edit')->name('edit');
+        //Route::put('/{posts}', 'update')->name('update');
+        //Route::delete('/{posts}', 'destroy')->name('destroy');
+    });
+
+    Route::prefix('tags')->controller(TagController::class)->name('tags.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/show', 'show')->name('show');
+        Route::get('/{tags}/edit', 'edit')->name('edit');
+        Route::patch('/{tags}', 'update')->name('update');
+        Route::delete('/{tags}', 'destroy')->name('destroy');
+    });
+
+    Route::resource('/users/category', CategoryController::class);
 });
+
+require __DIR__ . '/auth.php';

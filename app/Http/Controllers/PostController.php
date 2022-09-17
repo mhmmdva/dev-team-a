@@ -15,6 +15,8 @@ class PostController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
         return view('posts.create', [
+            'title' => 'Post Create',
+            'active' => 'Post',
             'categories' => $categories,
             'tags' => $tags,
         ]);
@@ -24,6 +26,6 @@ class PostController extends Controller
     {
         $postServices->handleStore($request);
 
-        return redirect()->route('home');
+        return redirect()->route('home.index');
     }
 }

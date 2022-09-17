@@ -10,34 +10,25 @@
                 </li>
 
                 <li class="breadcrumb-item">
-                    <a href="{{ route('category.index') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }} text-muted text-decoration-none">List Category
+                    <a href="{{ route('tags.index') }}"
+                        class="{{ $active === 'List' ? 'active' : '' }} text-muted text-decoration-none">List Tag
                     </a>
                 </li>
 
-                {{-- <li class="breadcrumb-item">
-                    <a href="{{ route('category.show') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Show
+                <li class="breadcrumb-item">
+                    <a href="{{ route('tags.show') }}"
+                        class="{{ $active === 'List' ? 'active' : '' }}  text-decoration-none">Show
                     </a>
-                </li> --}}
+                </li>
 
                 <li class="breadcrumb-item active">
-                    <a href="{{ route('category.create') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }} text-decoration-none">Create
+                    <a href="{{ route('tags.create') }}"
+                        class="{{ $active === 'Category' ? 'active' : '' }} text-muted text-decoration-none">Create
                     </a>
                 </li>
 
             </ol>
         </nav>
-    </div>
-    <div class="container">
-        <div class="mt-5">
-            <a href="{{ route('category.create') }}" class="btn btn-primary" data-bs-target="#ModalCreate"
-                data-bs-toggle="modal">
-                <i class="bi bi-plus-lg"></i>
-                Create
-            </a>
-        </div>
     </div>
 
     <div class="container">
@@ -52,24 +43,23 @@
                     </tr>
                 </thead>
                 <tbody class=" table-group-divider">
-                    @foreach ($category as $categories)
+                    @foreach ($tags as $tag)
                         <tr>
-                            <td>{{ $categories->name }}</td>
-                            <td>{{ $categories->updated_at->format('Y-M-d / H:i:s') }}</td>
-                            <td>{{ $categories->created_at->format('Y-M-d / H:i:s') }}</td>
+                            <td>{{ $tag->name }}</td>
+                            <td>{{ $tag->updated_at->format('Y-M-d / H:i:s') }}</td>
+                            <td>{{ $tag->created_at->format('Y-M-d / H:i:s') }}</td>
                             <td>
-                                <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm"
+                                <a href="{{ route('tags.create') }}" class="btn btn-primary btn-sm"
                                     data-bs-target="#ModalCreate" data-bs-toggle="modal">
                                     <i class="bi bi-plus-lg"></i>
                                     Create
                                 </a>
-                                <a href="{{ route('category.edit', $categories->id) }}"
-                                    class="btn btn-warning btn-sm text-white">
+                                <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-warning btn-sm text-white">
                                     <i class="bi bi-pencil"></i>
                                     Edit
                                 </a>
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#Modal{{ $categories->id }}">
+                                    data-bs-target="#Modal{{ $tag->id }}">
                                     <i class="bi bi-trash"></i>
                                     Delete
                                 </button>
@@ -80,15 +70,15 @@
                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                 <div class="modal-content bg-light">
                                     <div class="modal-header">
-                                        <h5 class="modal-title text-dark">Create Category</h5>
+                                        <h5 class="modal-title text-dark">Create Tag</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-footer">
-                                        <form action="{{ route('category.store') }}" method="POST" class="d-inline-block">
+                                        <form action="{{ route('tags.store') }}" method="POST" class="d-inline-block">
                                             @csrf
                                             <input type="text" class="form-control" id="name" name="name"
-                                                placeholder="Input category name">
+                                                placeholder="Input Tag Name">
 
                                             <button type="button" class="btn btn-danger"
                                                 data-bs-dismiss="modal">Close</button>
@@ -100,7 +90,7 @@
                         </div>
 
                         {{-- Modal Delete --}}
-                        <div class="modal fade" id="Modal{{ $categories->id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal fade" id="Modal{{ $tag->id }}" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                 <div class="modal-content bg-danger">
                                     <div class="modal-header">
@@ -114,7 +104,7 @@
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                        <form action="{{ route('category.destroy', $categories->id) }}" method="POST"
+                                        <form action="{{ route('tags.destroy', $tag->id) }}" method="POST"
                                             class="d-inline-block">
                                             @csrf
                                             @method('DELETE')

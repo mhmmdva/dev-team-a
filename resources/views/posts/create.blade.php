@@ -1,28 +1,35 @@
 @extends('layouts.app')
 
-@section('script')
-    {{-- select2 --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
-
-    <script>
-        $(document).ready(function () {
-            $(".select2").select2({
-                placeholder: "Select tags",
-                tags: true,
-            });
-        });
-     </script>
-
-    {{-- ckeditor --}}
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace('content');
-    </script>
-@endsection
-
 @section('content')
+    <div class="container">
+        <nav aria-label=" breadcrumb" class="border-bottom">
+            <ol class="mt-3 breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" class="{{ $active === 'User' ? 'active' : '' }}  text-muted text-decoration-none">Home
+                    </a>
+                </li>
+
+                <li class="breadcrumb-item">
+                    <a href="{{ route('posts.create') }}"
+                        class="{{ $active === 'Post' ? 'active' : '' }} text-decoration-none">Create
+                    </a>
+                </li>
+
+                {{-- <li class="breadcrumb-item">
+            <a href="{{ route('category.show') }}"
+                class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Show
+            </a>
+        </li> --}}
+
+                {{-- <li class="breadcrumb-item active">
+                    <a href="{{ route('category.create') }}"
+                        class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Create
+                    </a>
+                </li> --}}
+
+            </ol>
+        </nav>
+    </div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -95,7 +102,7 @@
                                 <div class="col-md">
                                     <select class="form-select select2" name="tags[]" multiple="multiple">
                                         @foreach ($tags as $tag)
-                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -138,4 +145,27 @@
                 {{-- </div> --}}
             </div>
         </div>
+    @endsection
+
+
+    @section('script')
+        {{-- select2 --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+
+        <script>
+            $(document).ready(function() {
+                $(".select2").select2({
+                    placeholder: "Select tags",
+                    tags: true,
+                });
+            });
+        </script>
+
+        {{-- ckeditor --}}
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+        <script>
+            CKEDITOR.replace('content');
+        </script>
     @endsection
