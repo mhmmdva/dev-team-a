@@ -6,10 +6,8 @@
         <div class="container">
 
             {{-- start header --}}
-            <header
-                class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom headers-two">
-
-                <nav class="navbar navbar-expand-lg navbar-dark navbar-on">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-dark navbar-on ">
                     <div class="container-fluid ">
                         <a class="logo text-decoration-none" href="{{ route('home.index') }}">
                             Dev Team A
@@ -20,7 +18,7 @@
                                 class="navbar-toggler-icon"></span>
                         </button>
                         {{-- start collapse navbar --}}
-                        <div class="collapse navbar-collapse " id="navbarSupportedContent2">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent2">
                             {{-- start ul navbar --}}
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
@@ -99,6 +97,8 @@
                         </div>
                         {{-- end collapse navbar --}}
                     </div>
+                </nav>
+
             </header>
             {{-- end header --}}
 

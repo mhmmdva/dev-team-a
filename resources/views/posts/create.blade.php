@@ -162,7 +162,6 @@
             });
         </script>
 
-    @section('script')
         <style>
             .select2-container--default .select2-selection--single {
                 background-color: #00f !important;
@@ -178,21 +177,17 @@
         </script>
 
         {{-- select2 --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
-
-        <script>
+        {{-- <script>
             $(document).ready(function() {
-                // var colors = ${getColor()};
+                 var colors = ${getColor()};
                 $(".select2").select2({
                     placeholder: "Select tags",
                     tags: true,
                 });
 
-                // var selections = $(".select2-selection__choice");
+                var selections = $(".select2-selection__choice");
             });
-        </script>
+        </script> --}}
 
         {{-- ckeditor --}}
         <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
@@ -201,9 +196,4 @@
         </script>
     @endsection
 
-    {{-- ckeditor --}}
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace('content');
-    </script>
 @endsection
