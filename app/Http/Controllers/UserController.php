@@ -28,7 +28,8 @@ class UserController extends Controller
     public function updateProfile(UpdateUserRequest $request, User $user, UserServices $userServices)
     {
         $userServices->handleUpdateProfile($request, $user);
-        return redirect()->route('profile.edit-profile', compact('user'));
+        return redirect()->route('profile.edit-profile', compact('user'))
+            ->with('success-update-profile', 'Your profile successfully updated!');
     }
 
     // edit user passsword form
@@ -41,6 +42,7 @@ class UserController extends Controller
     public function updatePassword(UpdatePasswordRequest $request, User $user, UserServices $userServices)
     {
         $userServices->handleUpdatePassword($request, $user);
-        return redirect()->route('profile.edit-password', compact('user'));
+        return redirect()->route('profile.edit-password', compact('user'))
+            ->with('success-update-password', 'Your password successfully updated!');
     }
 }
