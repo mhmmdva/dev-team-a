@@ -1,27 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <nav aria-label=" breadcrumb" class="border-bottom">
-            <ol class="mt-3 breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#" class="{{ $active === 'User' ? 'active' : '' }} text-muted text-decoration-none">Home
-                    </a>
-                </li>
-
-                <li class="breadcrumb-item">
-                    <a href="{{ route('category.index') }}"
-                        class="{{ $active === 'List' ? 'active' : '' }} text-muted text-decoration-none">List Category
-                    </a>
-                </li>
-                <li class="breadcrumb-item active">
-                    <a href="{{ route('users.index') }}"
-                        class="{{ $active === 'About' ? 'active' : '' }} text-decoration-none">About
-                    </a>
-                </li>
-            </ol>
-        </nav>
-    </div>
     {{-- start cards --}}
     <div class="container">
         <div class="d-flex align-content-center justify-content-center flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 ">
@@ -34,7 +13,7 @@
                                 alt="..." class="rounded img-fluid mx-auto mt-3" width="350" height="50">
 
                             <p class="text-paragraph col-md-12 p-5 "> <span
-                                    class="fs-1 fw-bold text-dark">{{ $users->name }}s</span>
+                                    class="fs-1 fw-bold text-dark">{{ $users->name }}</span>
                                 Lorem
                                 ipsum dolor
                                 sit

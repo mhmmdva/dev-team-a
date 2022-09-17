@@ -1,36 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <nav aria-label=" breadcrumb" class="border-bottom">
-            <ol class="mt-3 breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#" class="{{ $active === 'User' ? 'active' : '' }}  text-muted text-decoration-none">Home
-                    </a>
-                </li>
-
-                <li class="breadcrumb-item">
-                    <a href="{{ route('category.index') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }} text-decoration-none">List Category
-                    </a>
-                </li>
-
-                {{-- <li class="breadcrumb-item">
-                <a href="{{ route('category.show') }}"
-                    class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Show
-                </a>
-            </li> --}}
-
-                <li class="breadcrumb-item active">
-                    <a href="{{ route('category.create') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Create
-                    </a>
-                </li>
-
-            </ol>
-        </nav>
-    </div>
-
     {{-- start cards --}}
     @foreach ($category as $categories)
         <div class="d-flex flex-wrap flex-md-nowrap justify-content-center align-items-center pt-3 pb-2 mb-3 ">

@@ -2,35 +2,6 @@
 
 @section('content')
     <div class="container">
-        <nav aria-label=" breadcrumb" class="border-bottom">
-            <ol class="mt-3 breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#" class="{{ $active === 'User' ? 'active' : '' }}  text-muted text-decoration-none">Home
-                    </a>
-                </li>
-
-                <li class="breadcrumb-item">
-                    <a href="{{ route('posts.create') }}"
-                        class="{{ $active === 'Post' ? 'active' : '' }} text-decoration-none">Create
-                    </a>
-                </li>
-
-                {{-- <li class="breadcrumb-item">
-            <a href="{{ route('category.show') }}"
-                class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Show
-            </a>
-        </li> --}}
-
-                {{-- <li class="breadcrumb-item active">
-                    <a href="{{ route('category.create') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Create
-                    </a>
-                </li> --}}
-
-            </ol>
-        </nav>
-    </div>
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1 class="mb-3" style="font-weight: 700;">Create Post</h1>

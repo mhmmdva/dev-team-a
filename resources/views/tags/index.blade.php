@@ -1,36 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <nav aria-label=" breadcrumb" class="border-bottom">
-            <ol class="mt-3 breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#" class="{{ $active === 'User' ? 'active' : '' }}  text-muted text-decoration-none">Home
-                    </a>
-                </li>
-
-                <li class="breadcrumb-item">
-                    <a href="{{ route('tags.index') }}"
-                        class="{{ $active === 'List' ? 'active' : '' }} text-decoration-none">List Tag
-                    </a>
-                </li>
-
-                <li class="breadcrumb-item">
-                    <a href="{{ route('tags.show') }}"
-                        class="{{ $active === 'List' ? 'active' : '' }} text-muted text-decoration-none">Show
-                    </a>
-                </li>
-
-                <li class="breadcrumb-item active">
-                    <a href="{{ route('tags.create') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }} text-muted text-decoration-none">Create
-                    </a>
-                </li>
-
-            </ol>
-        </nav>
-    </div>
-
     <div class="d-flex justify-content-center align-items-center">
         <h1>
             Tag <a href="#" class="btn btn-light">#Data</a>

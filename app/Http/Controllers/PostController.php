@@ -24,7 +24,6 @@ class PostController extends Controller
         ]);
 
         return view('posts.create', compact('categories', 'tags'));
-
     }
 
     public function store(PostRequest $request, PostServices $postServices)
@@ -41,7 +40,10 @@ class PostController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('posts.edit', compact('post', 'categories', 'tags'));
+        return view('posts.edit', compact('post', 'categories', 'tags'), [
+            'title' => 'Post Create',
+            'active' => 'Post',
+        ]);
     }
 
     public function update(PostRequest $request, Post $post, PostServices $postServices)
@@ -51,6 +53,6 @@ class PostController extends Controller
 
         $postServices->handleUpdate($request, $post);
 
-        return redirect()->route('home');
+        return redirect()->route('home.index');
     }
 }

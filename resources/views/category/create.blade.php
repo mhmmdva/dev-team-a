@@ -2,35 +2,6 @@
 
 @section('content')
     <div class="container">
-        <nav aria-label=" breadcrumb" class="border-bottom">
-            <ol class="mt-3 breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#" class="{{ $active === 'User' ? 'active' : '' }}  text-muted text-decoration-none">Home
-                    </a>
-                </li>
-
-                <li class="breadcrumb-item">
-                    <a href="{{ route('category.index') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }} text-muted text-decoration-none">List Category
-                    </a>
-                </li>
-
-                {{-- <li class="breadcrumb-item">
-                    <a href="{{ route('category.show') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Show
-                    </a>
-                </li> --}}
-
-                <li class="breadcrumb-item active">
-                    <a href="{{ route('category.create') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }} text-decoration-none">Create
-                    </a>
-                </li>
-
-            </ol>
-        </nav>
-    </div>
-    <div class="container">
         <div class="mt-5">
             <a href="{{ route('category.create') }}" class="btn btn-primary" data-bs-target="#ModalCreate"
                 data-bs-toggle="modal">
@@ -40,7 +11,30 @@
         </div>
     </div>
 
-    <div class="container">
+    {{-- Modal Create --}}
+    <div class="modal fade" id="ModalCreate" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-light">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark">Create Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ route('category.store') }}" method="POST" class="d-inline-block">
+                        @csrf
+                        <input type="text" class="form-control" id="name" name="name"
+                            placeholder="Input category name">
+
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- <div class="container">
         <div class="mt-4 table-responsive">
             <table class="table table-striped table-sm">
                 <thead>
@@ -75,31 +69,8 @@
                                 </button>
                             </td>
                         </tr>
-                        {{-- Modal Create --}}
-                        <div class="modal fade" id="ModalCreate" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-lg modal-dialog-centered">
-                                <div class="modal-content bg-light">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title text-dark">Create Category</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form action="{{ route('category.store') }}" method="POST" class="d-inline-block">
-                                            @csrf
-                                            <input type="text" class="form-control" id="name" name="name"
-                                                placeholder="Input category name">
-
-                                            <button type="button" class="btn btn-danger"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-dark">Create</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Modal Delete --}}
+                      
+                     
                         <div class="modal fade" id="Modal{{ $categories->id }}" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                 <div class="modal-content bg-danger">
@@ -130,5 +101,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> --}}
 @endsection

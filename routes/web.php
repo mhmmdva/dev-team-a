@@ -32,13 +32,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/about', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
-        Route::get('/show', 'showList')->name('showList');
-        Route::get('/{user:username}', 'showProfile')->name('showList');
+        Route::get('/show', 'showList')->name('show-list');
+        Route::get('/{user:username}', 'showProfile')->name('show-profile');
         Route::get('/{user:username}/edit-profile', 'editProfile')->name('edit-profile');
         Route::patch('/{user:username}/update-profile', 'updateProfile')->name('update-profile');
         Route::get('/{user:username}/edit-password', 'editPassword')->name('edit-password');
         Route::patch('/{user:username}/update-password', 'updatePassword')->name('update-password');
     });
+
 
     Route::prefix('posts')->controller(PostController::class)->name('posts.')->group(function () {
         Route::get('/', 'index')->name('index');

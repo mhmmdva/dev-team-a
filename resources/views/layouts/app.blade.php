@@ -32,6 +32,11 @@
                                         <i class='bx bx-user me-1'></i>Post</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link {{ $active === 'About' ? 'active' : '' }} "
+                                        href="{{ route('profile.index') }}">
+                                        <i class='bx bx-user me-1'></i>About</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link {{ $active === 'Category' ? 'active' : '' }} "
                                         href="{{ route('category.index') }}">
                                         <i class='bx bx-category-alt me-1'></i>Category</a>
@@ -58,21 +63,22 @@
                                     </div>
                                 </a>
                                 <ul class="mt-2 dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="bx bx-user"></i><span>Profile</span></a>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('profile.show-profile', auth()->user()->username) }}">
+                                            <i class="bx bx-user"></i><span>Profile</span></a>
                                     </li>
-                                    <li><a class="dropdown-item {{ $active === 'Post' ? 'active' : '' }} "
-                                            href="{{ route('posts.create') }}"><i
-                                                class='bx bx-home-circle'></i><span>Create New Post</span></a>
+                                    {{-- <li><a class="dropdown-item {{ $active === 'Post' ? 'active' : '' }} "
+                                            href="{{ route('posts.create') }}">
+                                            <i class='bx bx-home-circle'></i><span>Create Post</span></a>
                                     </li>
                                     <li><a class="dropdown-item {{ $active === 'Tags' ? 'active' : '' }} "
                                             href="{{ route('tags.create') }}"><i
-                                                class='bx bx-dollar-circle'></i><span>Create New Tag</span></a>
+                                                class='bx bx-dollar-circle'></i><span>Create Tag</span></a>
                                     </li>
                                     <li><a class="dropdown-item {{ $active === 'Category' ? 'active' : '' }} "
                                             href="{{ route('category.create') }}"><i
-                                                class='bx bx-dollar-circle'></i><span>Create New Category</span></a>
-                                    </li>
+                                                class='bx bx-dollar-circle'></i><span>Create Category</span></a>
+                                    </li> --}}
                                     <li>
                                         <div class="dropdown-divider mb-0"></div>
                                     </li>

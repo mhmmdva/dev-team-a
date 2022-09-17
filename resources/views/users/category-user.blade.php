@@ -8,7 +8,7 @@
                         class="{{ $active === 'User' ? 'active' : '' }} text-decoration-none">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('category.index') }}"
                         class="{{ $active === 'List' ? 'active' : '' }} text-decoration-none">List</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('users.index') }}"
+                <li class="breadcrumb-item active"><a href="{{ route('profile.index') }}"
                         class="{{ $active === 'About' ? 'active' : '' }} text-decoration-none">About</a></li>
             </ol>
         </nav>

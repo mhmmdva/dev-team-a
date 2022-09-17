@@ -11,7 +11,7 @@
 
                 <li class="breadcrumb-item">
                     <a href="{{ route('tags.index') }}"
-                        class="{{ $active === 'List' ? 'active' : '' }} text-muted text-decoration-none">List Tag
+                        class="{{ $active === 'List' ? 'active' : '' }} text-muted text-decoration-none">List
                     </a>
                 </li>
 
@@ -32,7 +32,7 @@
     </div>
 
     <div class="container">
-        <div class="mt-4 table-responsive">
+        <div class="mt-4 mb-5 table-responsive">
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>

@@ -15,10 +15,12 @@
                     <div id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit-profile', $user->username) }}">Profile</a>
+                                <a class="nav-link text-dark"
+                                    href="{{ route('profile.edit-profile', $user->username) }}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit-password', $user->username) }}">Password</a>
+                                <a class="nav-link text-dark"
+                                    href="{{ route('profile.edit-password', $user->username) }}">Password</a>
                             </li>
                         </ul>
                     </div>
@@ -39,7 +41,7 @@
                                 <div class="col-md">
                                     <input id="photo" type="file"
                                         class="form-control @error('photo') is-invalid @enderror" name="photo"
-                                        value="{{ old('photo') }}" autofocus>
+                                        value="{{ old('photo') ?? $user->photo() }}" autofocus>
 
                                     @error('photo')
                                         <span class="invalid-feedback" role="alert">
