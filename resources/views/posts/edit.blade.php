@@ -2,40 +2,13 @@
 
 @section('content')
     <div class="container">
-        <nav aria-label=" breadcrumb" class="border-bottom">
-            <ol class="mt-3 breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#" class="{{ $active === 'User' ? 'active' : '' }}  text-muted text-decoration-none">Home
-                    </a>
-                </li>
-
-                <li class="breadcrumb-item">
-                    <a href="{{ route('posts.create') }}"
-                        class="{{ $active === 'Post' ? 'active' : '' }} text-decoration-none">Create
-                    </a>
-                </li>
-
-                {{-- <li class="breadcrumb-item">
-            <a href="{{ route('category.show') }}"
-                class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Show
-            </a>
-        </li> --}}
-
-                {{-- <li class="breadcrumb-item active">
-                    <a href="{{ route('category.create') }}"
-                        class="{{ $active === 'Category' ? 'active' : '' }}  text-muted text-decoration-none">Create
-                    </a>
-                </li> --}}
-
-            </ol>
-        </nav>
-    </div>
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 class="mb-3" style="font-weight: 700;">Create Post</h1>
-                <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+                <h1 class="mb-3" style="font-weight: 700;">Edit Post</h1>
+                <form method="POST" action="{{ route('posts.update', $post->slug) }}" enctype="multipart/form-data">
                     @csrf
+                    @method('PATCH')
+
                     <div class="card">
                         <div class="card-body">
 
@@ -45,7 +18,8 @@
 
                                 <div class="col-md">
                                     <input id="image" type="file"
-                                        class="form-control @error('image') is-invalid @enderror" name="image">
+                                        class="form-control @error('image') is-invalid @enderror" name="image"
+                                        value="{{ old('image') }}" autofocus>
 
                                     @error('image')
                                         <span class="invalid-feedback" role="alert">
@@ -62,7 +36,7 @@
                                 <div class="col-md">
                                     <input id="title" type="text"
                                         class="form-control @error('title') is-invalid @enderror" name="title"
-                                        value="{{ old('title') }}" required autocomplete="title"
+                                        value="{{ old('title') ?? $post->title }}" required autocomplete="title"
                                         placeholder="Write your title..." autofocus>
 
                                     @error('title')
@@ -81,9 +55,9 @@
                                     <select name="category_id" id="category_id" class="form-select" required>
                                         <option selected>--- SELECT CATEGORY ---</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">
-                                                {{ $category->name }}
-                                            </option>
+                                            ($category->id == $post->category_id) ?
+                                                <option value="{{ $category->id }}" selected="selected">{{ $category->name }}</option> :
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
 
@@ -100,11 +74,15 @@
                                 <label for="tags">Tags</label>
 
                                 <div class="col-md">
-                                    <select
-                                        class="form-select select2 select2-container--default .select2-selection--single"
-                                        name="tags[]" multiple="multiple">
+                                    <select class="form-select select2" name="tags[]" multiple="multiple">
                                         @foreach ($tags as $tag)
-                                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                            <option value="{{ $tag->id }}"
+                                                @foreach ($post->tags as $currentTag)
+                                                    @if ($tag->id == $currentTag->id)
+                                                        selected
+                                                    @endif()
+                                                @endforeach>{{ $tag->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -121,7 +99,9 @@
                                 <label for="content">Content</label>
 
                                 <div class="col-md">
-                                    <textarea class="form-control" placeholder="Write your content..." id="content" name="content"></textarea>
+                                    <textarea class="form-control" placeholder="Write your content..." id="content" name="content">
+                                        {{ old('content') ?? $post->content }}
+                                    </textarea>
 
                                     @error('content')
                                         <span class="invalid-feedback" role="alert">
@@ -140,66 +120,29 @@
                                     style="width: 12rem; height:3rem; background-color: white; border-color:#4F6EAC; color:#4F6EAC">
                             </form>
                             <button type="submit" class="btn btn-primary"
-                                style="width: 12rem; height:3rem; background-color: #4F6EAC; border-color:#4F6EAC">Post</button>
+                                style="width: 12rem; height:3rem; background-color: #4F6EAC; border-color:#4F6EAC">Update</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+    </div>
+@endsection
 
     @section('script')
-        {{-- select2 --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+    {{-- select2 --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 
-        <script>
-            $(document).ready(function() {
-                $(".select2").select2({
-                    placeholder: "Select tags",
-                    tags: true,
-                });
+    <script>
+        $(document).ready(function() {
+            $(".select2").select2({
+                placeholder: "Select tags",
+                tags: true,
             });
-        </script>
-
-    @section('script')
-        <style>
-            .select2-container--default .select2-selection--single {
-                background-color: #00f !important;
-            }
-        </style>
-
-        <script>
-            function getColor() {
-                return "hsl(" + 360 * Math.random() + ',' +
-                    (25 + 70 * Math.random()) + '%,' +
-                    (85 + 10 * Math.random()) + '%)'
-            }
-        </script>
-
-        {{-- select2 --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
-
-        <script>
-            $(document).ready(function() {
-                // var colors = ${getColor()};
-                $(".select2").select2({
-                    placeholder: "Select tags",
-                    tags: true,
-                });
-
-                // var selections = $(".select2-selection__choice");
-            });
-        </script>
-
-        {{-- ckeditor --}}
-        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-        <script>
-            CKEDITOR.replace('content');
-        </script>
-    @endsection
+        });
+    </script>
 
     {{-- ckeditor --}}
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>

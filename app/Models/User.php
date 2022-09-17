@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -17,6 +18,16 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    // protected $fillable = [
+    //     'name',
+    //     'username',
+    //     'email',
+    //     'password',
+    //     'photo',
+    // ];
+    // kalo udah guarded biasanya gaharus fillable juga gapapa sih kak
+
     /**
      * The attributes that are mass assignable.
      *
@@ -50,5 +61,14 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function photo()
+    {
+        if ($this->photo != null) {
+            return Storage::url($this->photo);
+        } else {
+            return null;
+        }
     }
 }

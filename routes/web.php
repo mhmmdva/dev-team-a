@@ -28,25 +28,25 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-    Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
+    Route::prefix('users')->controller(UserController::class)->name('profile.')->group(function () {
         Route::get('/about', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
-
-        //Route::get('/show', 'show')->name('show');
-        //Route::get('/{users}/edit', 'edit')->name('edit');
-        //Route::put('/{users}', 'update')->name('update');
-        //Route::delete('/{users}', 'destroy')->name('destroy');
+        Route::get('/show', 'showList')->name('showList');
+        Route::get('/{user:username}', 'showProfile')->name('showList');
+        Route::get('/{user:username}/edit-profile', 'editProfile')->name('edit-profile');
+        Route::patch('/{user:username}/update-profile', 'updateProfile')->name('update-profile');
+        Route::get('/{user:username}/edit-password', 'editPassword')->name('edit-password');
+        Route::patch('/{user:username}/update-password', 'updatePassword')->name('update-password');
     });
 
     Route::prefix('posts')->controller(PostController::class)->name('posts.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
-
         //Route::get('/show', 'show')->name('show');
-        //Route::get('/{posts}/edit', 'edit')->name('edit');
-        //Route::put('/{posts}', 'update')->name('update');
+        Route::get('/{post:slug}/edit', 'edit')->name('edit');
+        Route::patch('/{post:slug}/update', 'update')->name('update');
         //Route::delete('/{posts}', 'destroy')->name('destroy');
     });
 
@@ -60,7 +60,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{tags}', 'destroy')->name('destroy');
     });
 
-    Route::resource('/users/category', CategoryController::class);
+
+
+    Route::resource('/category', CategoryController::class);
 });
 
 require __DIR__ . '/auth.php';
