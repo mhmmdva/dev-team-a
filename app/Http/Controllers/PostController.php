@@ -39,14 +39,16 @@ class PostController extends Controller
             'tags' => $tags,
         ]);
 
-        return view('posts.create', compact('categories', 'tags'));
+        return view('posts.create', compact('categories', 'tags'))
+            ->with('success-create-post', 'Post successfully created!');
     }
 
     public function store(PostRequest $request, PostServices $postServices)
     {
         $postServices->handleStore($request);
 
-        return redirect()->route('home.index');
+        return redirect()->route('home.index')
+            ->with('success-create-post', 'Post successfully created!');
     }
 
     public function edit(Post $post)
@@ -69,7 +71,8 @@ class PostController extends Controller
 
         $postServices->handleUpdate($request, $post);
 
-        return redirect()->route('home.index');
+        return redirect()->route('home.index')
+            ->with('success-edit-post', 'Post successfully updated!');
     }
 
     public function bookmark(Post $post)
@@ -82,7 +85,7 @@ class PostController extends Controller
         $post->update([
             'bookmark' => $post->bookmark ? false : true,
         ]);
-            
+
         return back();
     }
 }

@@ -4,6 +4,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                {{-- success notification --}}
+                @if (session()->has('success-edit-post'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success-edit-post') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
                 <h1 class="mb-3" style="font-weight: 700;">Edit Post</h1>
                 <form method="POST" action="{{ route('posts.update', $post->slug) }}" enctype="multipart/form-data">
                     @csrf
@@ -129,11 +138,15 @@
     </div>
 @endsection
 
-    @section('script')
+@push('head')
+    {{-- select2 --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
+@endpush
+
+@push('script')
     {{-- select2 --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 
     <script>
         $(document).ready(function() {
@@ -149,4 +162,4 @@
     <script>
         CKEDITOR.replace('content');
     </script>
-@endsection
+@endpush
