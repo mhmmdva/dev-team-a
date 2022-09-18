@@ -16,6 +16,14 @@ class UserServices
 
         $data['user_id'] = auth()->id();
 
+        if ($request->hasFile('photo')) {
+            if (!is_null($user->photo)) {
+                Storage::delete($user->photo);
+            }
+            $photo = $request->file('photo')->store('images/profile');
+            $data['photo'] = $photo;
+        }
+
         $user->update($data);
     }
 

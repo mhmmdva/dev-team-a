@@ -63,12 +63,22 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function tags()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function category()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function photo()
     {
         if ($this->photo != null) {
             return Storage::url($this->photo);
         } else {
-            return asset('assets/users/images/default-profile-photo.jpg');
+            return null;
         }
     }
 }

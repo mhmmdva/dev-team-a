@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TagRequest;
+use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,39 +14,50 @@ class TagController extends Controller
     public function index()
     {
 
-        $tags = Tag::all();
+        $active = 'Tags';
+        $categories = Category::all();
+        $tags = Tag::paginate(10);
+        $title = 'Tags';
 
-        return view('tags.index', [
-            'title' => 'Tags',
-            'active' => 'Tags',
-            'tags' => $tags,
-        ]);
+        return view('tags.index', compact('active', 'categories', 'tags', 'title'));
     }
 
     public function create()
     {
-        return view('tags.create', [
-            'title' => 'Tags',
-            'active' => 'Tags',
-        ]);
-    }
+        $active = 'Tags';
+        $tags = Tag::all();
+        $title = 'Tags';
 
-    public function show()
-    {
-
-        return view('tags.show', [
-            'title' => 'Tags',
-            'active' => 'Tags',
-            'tags' => Tag::get(),
-        ]);
+        return view('tags.create', compact('active', 'tags', 'title'));
     }
 
     public function store(TagRequest $tagRequest)
     {
-        Tag::create($tagRequest->validated());
+        $data = $tagRequest->validated();
 
-        return redirect()->route('tags.show');
+        //$data['slug'] = str()->slug($data['name']);
+
+        Tag::create($data);
+
+        return redirect()->route('tags.index');
     }
+
+    public function show(Tag $tag)
+    {
+        $active = 'Tags';
+        $categories = Category::all();
+        $posts = $tag->posts()->with('user', 'category', 'tags')->paginate(10);
+        $title = 'Tags';
+
+        return view('tags.show', [
+            'active' => $active,
+            'categories' => $categories,
+            'posts' => $posts,
+            'title' => $title,
+            'tag' => $tag,
+        ]);
+    }
+
 
     public function edit(Tag $tags)
     {
@@ -63,13 +75,13 @@ class TagController extends Controller
 
         $tags->update($data);
 
-        return redirect()->route('tags.show');
+        return redirect()->route('tags.index');
     }
 
     public function destroy(Tag $tags)
     {
         $tags->delete();
 
-        return redirect()->route('tags.show');
+        return redirect()->route('tags.index');
     }
 }
