@@ -1,39 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="mt-5">
-            <a href="{{ route('category.create') }}" class="btn btn-primary" data-bs-target="#ModalCreate"
-                data-bs-toggle="modal">
-                <i class="bi bi-plus-lg"></i>
-                Create
-            </a>
-        </div>
-    </div>
-
     {{-- Modal Create --}}
-    <div class="modal fade" id="ModalCreate" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content bg-light">
-                <div class="modal-header">
-                    <h5 class="modal-title text-dark">Create Category</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-footer">
-                    <form action="{{ route('category.store') }}" method="POST" class="d-inline-block">
-                        @csrf
-                        <input type="text" class="form-control" id="name" name="name"
-                            placeholder="Input category name">
-
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-dark">Create</button>
-                    </form>
-                </div>
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center ">
+            <div class="card col-lg-8 mt-5 mb-5 cards-category-name p-4">
+                <h1 class="mt-3 card-title">Create Category</h1>
+                <form action="{{ route('category.store') }}" method="POST" class="d-inline-block col-lg-12 mt-1 mb-5">
+                    @csrf
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Input category name">
+                    <button type="submit" class="mt-4 btn btn-dark">Create</button>
+                </form>
+                {{-- <button type="button" class="mt-4 btn btn-dark">
+                    <a href="{{ route('category.edit', $category->name) }}">Create</a>
+                </button> --}}
             </div>
         </div>
     </div>
-
-
+   
     {{-- <div class="container">
         <div class="mt-4 table-responsive">
             <table class="table table-striped table-sm">

@@ -6,11 +6,27 @@ use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use App\Services\PostServices;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function index()
+    {
+        // $categories = Category::all();
+        $tags = Tag::all();
+        // $users = User::all();
+        $posts = Post::get();
+
+        return view('dashboard.index', [
+            'title' => 'Dashboard',
+            'active' => 'Dashboard',
+            'posts' => $posts,
+            'tags' => $tags,
+        ]);
+    }
+
     public function create()
     {
         $categories = Category::all();
@@ -23,8 +39,7 @@ class PostController extends Controller
             'tags' => $tags,
         ]);
 
-        return view('posts.create', compact('categories', 'tags'))
-            ->with('success-create-post', 'Post successfully created!');
+        return view('posts.create', compact('categories', 'tags'));
     }
 
     public function store(PostRequest $request, PostServices $postServices)
@@ -55,5 +70,19 @@ class PostController extends Controller
         $postServices->handleUpdate($request, $post);
 
         return redirect()->route('home.index');
+    }
+
+    public function bookmark(Post $post)
+    {
+        // boolean (left = false)
+        // boolean (right = true)
+        // $post->bookmark = !$post->bookmark;
+        // $post->save();
+
+        $post->update([
+            'bookmark' => $post->bookmark ? false : true,
+        ]);
+            
+        return back();
     }
 }
