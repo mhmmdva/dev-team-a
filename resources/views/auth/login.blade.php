@@ -3,28 +3,28 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <div class="card border-0">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Sign in with</h5>
-                    <div class="row justify-content-center align-items-center my-4">
-                        <div class="col-md-2">
-                            <a class="btn" href="#"><i class="bi bi-google"></i></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a class="btn" href="#"><i class="bi bi-twitter"></i></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a class="btn" href="#"><i class="bi bi-facebook"></i></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a class="btn" href="#"><i class="bi bi-github"></i></a>
-                        </div>
+        <div class="card border-0 bg-transparent my-5">
+            <div class="card-body">
+                <h5 class="card-title text-center">Sign in</h5>
+                <div class="row justify-content-center my-4">
+                    <div class="col-lg-6">
+                        <center><a class="btn btn-danger btn-sm" href="{{ route('login.google') }}"><i class="bi bi-google"></i><span> Sign up with Google</span></a></center>
                     </div>
+                    <!-- <div class="col-md-2">
+                        <a class="btn" href="#"><i class="bi bi-twitter"></i></a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn" href=""><i class="bi bi-facebook"></i></a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn" href="#"><i class="bi bi-github"></i></a>
+                    </div> -->
+                </div>
 
-                    <p class="text-center text-muted mb-4">or</p>
+                <p class="text-center text-muted mb-4">or</p>
 
-                    <div class="row">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
