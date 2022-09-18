@@ -23,7 +23,8 @@ class PostController extends Controller
             'tags' => $tags,
         ]);
 
-        return view('posts.create', compact('categories', 'tags'));
+        return view('posts.create', compact('categories', 'tags'))
+            ->with('success-create-post', 'Post successfully created!');
     }
 
     public function store(PostRequest $request, PostServices $postServices)

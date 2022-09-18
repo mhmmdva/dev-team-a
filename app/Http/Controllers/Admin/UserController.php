@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\User;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -70,7 +71,7 @@ class UserController extends Controller
             'title' => 'UpdatePro',
             'active' => 'UpdatePro',
             'user' => $user,
-        ]);
+        ])->with('success-update-profile', 'Your profile successfully updated!');
     }
 
     //edit user passsword form
@@ -81,8 +82,8 @@ class UserController extends Controller
             'active' => 'Edit',
             'user' => $user,
         ]);
-    } 
- 
+    }
+
     public function updatePassword(UpdatePasswordRequest $request, User $user, UserServices $userServices)
     {
         $userServices->handleUpdatePassword($request, $user);
@@ -90,6 +91,25 @@ class UserController extends Controller
             'title' => 'Update',
             'active' => 'Update',
             'user' => $user
-        ]);
+        ])->with('success-update-password', 'Your password successfully updated!');
+    }
+
+    public function changeProfilePhoto(Request $request, User $user)
+    {
+        if ($request->hasFile('photo')) {
+            if (!is_null($user->photo)) {
+                Storage::delete($user->photo);
+            }
+            $photo = $request->file('photo')->store('public/images/profile');
+            $data['photo'] = $photo;
+        }
+
+        $upload = $user->update($data);
+
+        if ($upload) {
+            return response()->json(['status' => 1, 'msg' => "Your profile picture has been successfully updated."]);
+        } else {
+            return response()->json(['status' => 0, 'msg' => "Something went wrong."]);
+        }
     }
 }

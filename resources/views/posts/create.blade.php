@@ -4,6 +4,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                {{-- success notification --}}
+                @if (session()->has('success-create-post'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success-create-post') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
                 <h1 class="mb-3" style="font-weight: 700;">Create Post</h1>
                 <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
@@ -117,6 +126,7 @@
                 </form>
             </div>
         </div>
+@endsection
 
 @push('head')
     {{-- select2 --}}

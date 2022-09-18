@@ -29,7 +29,7 @@
                                     href="{{ route('profile.edit-profile', $user->username) }}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark"
+                                <a class="nav-link text-secondary"
                                     href="{{ route('profile.edit-password', $user->username) }}">Password</a>
                             </li>
                         </ul>

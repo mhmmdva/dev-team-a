@@ -23,11 +23,11 @@
                 <nav class="navbar navbar-expand-lg">
                     <div id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{ route('profile.edit-profile', $user->username) }}">Profile</a>
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" href="{{ route('profile.edit-profile', $user->username) }}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit-password', $user->username) }}">Password</a>
+                                <a class="nav-link text-dark" href="{{ route('profile.edit-password', $user->username) }}">Password</a>
                             </li>
                         </ul>
                     </div>
