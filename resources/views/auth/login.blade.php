@@ -8,7 +8,7 @@
                 <h5 class="card-title text-center">Sign in</h5>
                 <div class="row justify-content-center my-4">
                     <div class="col-lg-6">
-                        <center><a class="btn btn-danger btn-sm" href="{{ route('login.google') }}"><i class="bi bi-google"></i><span> Sign up with Google</span></a></center>
+                        <center><a class="btn btn-danger btn-sm" href="{{ route('login.google') }}"><i class="bi bi-google"></i><span> Sign in with Google</span></a></center>
                     </div>
                     <!-- <div class="col-md-2">
                         <a class="btn" href="#"><i class="bi bi-twitter"></i></a>
