@@ -24,7 +24,7 @@
                                 <label for="image">Image</label>
 
                                 <div class="col-md">
-                                    <input id="image" type="file"
+                                    <input id="image" type="file" accept="image/*"
                                         class="form-control @error('image') is-invalid @enderror" name="image">
 
                                     @error('image')
