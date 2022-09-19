@@ -43,14 +43,16 @@ class PostController extends Controller
             'active' => 'Post',
             'categories' => $categories,
             'tags' => $tags,
-        ]);
+        ])->with('success-create-post', 'Post successfully created!');
+
     }
 
     public function store(PostRequest $request, PostServices $postServices)
     {
         $postServices->handleStore($request);
 
-        return redirect()->route('home.index');
+        return redirect()->route('home.index')
+            ->with('success-create-post', 'Post successfully created!');
     }
 
     public function edit(Post $post)
@@ -75,7 +77,17 @@ class PostController extends Controller
 
         $postServices->handleUpdate($request, $post);
 
-        return redirect()->route('home.index');
+        return redirect()->route('post.show')
+            ->with('success-edit-post', 'Post successfully updated!');
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show', [
+            'post' => $post,
+            'title' => 'Post.show',
+            'active' => 'Post',
+        ]);
     }
 
     public function bookmark(Post $post)

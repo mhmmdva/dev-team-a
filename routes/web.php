@@ -27,6 +27,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::resource('posts', PostController::class)->except('index');
 
     // Route::prefix('dashboard')->controller(DashboardController::class)->name('dashboard.')->group(function () {
     //     Route::get('/', 'index')->name('index');
@@ -44,11 +45,12 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/{user:username}/update-profile', 'updateProfile')->name('update-profile');
         Route::get('/{user:username}/edit-password', 'editPassword')->name('edit-password');
         Route::patch('/{user:username}/update-password', 'updatePassword')->name('update-password');
+        Route::post('/{user:username}/change-profile-photo', 'changeProfilePhoto')->name('change-profile-photo');
     });
 
 
     Route::prefix('posts')->controller(PostController::class)->name('posts.')->group(function () {
-        Route::get('/', 'index')->name('index');
+        Route::get('show', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
         //Route::get('/show', 'show')->name('show');

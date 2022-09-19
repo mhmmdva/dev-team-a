@@ -4,6 +4,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                {{-- success notification --}}
+                @if (session()->has('success-create-post'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success-create-post') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
                 <h1 class="mb-3" style="font-weight: 700;">Create Post</h1>
                 <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
@@ -15,7 +24,7 @@
                                 <label for="image">Image</label>
 
                                 <div class="col-md">
-                                    <input id="image" type="file"
+                                    <input id="image" type="file" accept="image/*"
                                         class="form-control @error('image') is-invalid @enderror" name="image">
 
                                     @error('image')
@@ -117,54 +126,31 @@
                 </form>
             </div>
         </div>
-
-    @section('script')
-        {{-- select2 --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
-
-        <script>
-            $(document).ready(function() {
-                $(".select2").select2({
-                    placeholder: "Select tags",
-                    tags: true,
-                });
-            });
-        </script>
-
-        <style>
-            .select2-container--default .select2-selection--single {
-                background-color: #00f !important;
-            }
-        </style>
-
-        <script>
-            function getColor() {
-                return "hsl(" + 360 * Math.random() + ',' +
-                    (25 + 70 * Math.random()) + '%,' +
-                    (85 + 10 * Math.random()) + '%)'
-            }
-        </script>
-
-        {{-- select2 --}}
-        {{-- <script>
-            $(document).ready(function() {
-                 var colors = ${getColor()};
-                $(".select2").select2({
-                    placeholder: "Select tags",
-                    tags: true,
-                });
-
-                var selections = $(".select2-selection__choice");
-            });
-        </script> --}}
-
-        {{-- ckeditor --}}
-        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-        <script>
-            CKEDITOR.replace('content');
-        </script>
-    @endsection
-
+    </div>
 @endsection
+
+@push('head')
+    {{-- select2 --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
+@endpush
+
+@push('script')
+    {{-- select2 --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2({
+                placeholder: "Select tags",
+                tags: true,
+            });
+        });
+    </script>
+
+    {{-- ckeditor --}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+@endpush

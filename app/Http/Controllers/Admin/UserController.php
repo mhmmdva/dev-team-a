@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
+
 use App\Models\Category;
 use App\Models\Post;
-use App\Models\Tag;
 use App\Models\User;
+
 use App\Services\UserServices;
-use Illuminate\Http\Request;
+
+use App\Models\Tag;
+
 
 class UserController extends Controller
 {
@@ -50,10 +56,15 @@ class UserController extends Controller
     // // show profile
     public function showProfile(User $user)
     {
-        return view('profile.show', [
-            'active' => 'User',
+
+        $posts = Post::get()->where('user_id', $user->id);
+
+        return view('profile.show',  [
             'title' => 'User',
+            'active' => 'User',
             'user' => $user,
+            'posts' => $posts
+
         ]);
     }
 
@@ -75,7 +86,7 @@ class UserController extends Controller
             'active' => 'UpdatePro',
             'title' => 'UpdatePro',
             'user' => $user,
-        ]);
+        ])->with('success-update-profile', 'Your profile successfully updated!');;
     }
 
     //edit user passsword form
@@ -95,6 +106,25 @@ class UserController extends Controller
             'active' => 'Update',
             'title' => 'Update',
             'user' => $user
-        ]);
+        ])->with('success-update-password', 'Your password successfully updated!');
+    }
+
+    public function changeProfilePhoto(Request $request, User $user)
+    {
+        if ($request->hasFile('photo')) {
+            if (!is_null($user->photo)) {
+                Storage::delete($user->photo);
+            }
+            $photo = $request->file('photo')->store('public/images/profile');
+            $data['photo'] = $photo;
+        }
+
+        $upload = $user->update($data);
+
+        if ($upload) {
+            return response()->json(['status' => 1, 'msg' => "Your profile picture has been successfully updated."]);
+        } else {
+            return response()->json(['status' => 0, 'msg' => "Something went wrong."]);
+        }
     }
 }

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- Modal Create --}}
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center ">
             <div class="card col-lg-8 mt-5 mb-5 cards-category-name p-4">
