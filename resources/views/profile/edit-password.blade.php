@@ -93,7 +93,6 @@
 
                             <div class="col-md">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
-
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -101,11 +100,9 @@
                                 @enderror
                             </div>
                         </div>
-
                         {{-- confirm new password --}}
                         <div class="row mb-3 mx-5">
                             <label for="password-confirm">Confirm new password</label>
-
                             <div class="col-md mb-4">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                             </div>
@@ -123,4 +120,5 @@
             </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection

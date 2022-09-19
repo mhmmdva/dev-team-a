@@ -121,6 +121,11 @@
    outline: 0;
 }
 
+/* alerts */
+.alert-success {
+   background-color: green;
+}
+
 
 /* header codes */
 .header-nav {
@@ -180,60 +185,82 @@ button.btn-profile {
    padding: 0;
 }
 
-.sidebar {
-   position: fixed;
-   top: 0;
-   /* rtl:raw:
-   right: 0;
-   */
-   bottom: 0;
-   /* rtl:remove */
-   left: 0;
-   z-index: 100;
-   /* Behind the navbar */
-   padding: 48px 0 0;
-   /* Height of navbar */
-   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+
+/* alert */
+.alert-tags div.modal-header {
+   font-family: 'Open Sans', sans-serif;
+}
+
+.alert-tags .btn-close {
+   width: 2px;
+   height: auto;
+}
+
+.alert-category .btn-close {
+   width: 2px;
+   height: auto;
+}
+
+.alert-tags h5.modal-title {
+   font-family: 'Open Sans', sans-serif;
+   font-size: 18px;
+}
+
+.alert-tags .modal-body {
+   font-family: 'Open Sans', sans-serif;
+   font-size: 14px;
 }
 
 
-.sidebar-sticky {
-   height: calc(100vh - 48px);
-   overflow-x: hidden;
-   overflow-y: auto;
-   /* Scrollable contents if viewport is shorter than content. */
+
+/* about */
+.btn-link a.btn {
+   font-family: 'Raleway', sans-serif;
+   font-size: 28px;
 }
 
-.sidebar .nav-link {
-   font-weight: 500;
-   color: #333;
+.btn-link a.btn:nth-child(1) {
+   border: none;
+   background-color: #F2F2F2;
+   color: black;
 }
 
-.sidebar .nav-link .feather {
-   margin-right: 4px;
-   color: #727272;
+.btn-link a.btn:nth-child(2) {
+   border: none;
+   background-color: #B8E1FF;
+   color: black;
 }
 
-.sidebar .nav-link.active {
-   color: #2470dc;
+.btn-link a.btn:nth-child(3) {
+   border: none;
+   background-color: #ffc117e1;
+   color: black;
 }
-
-.sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
-   color: inherit;
-}
-
-.sidebar-heading {
-   font-size: .75rem;
-}
-
-
 
 /* cards */
 .cards-category-name h1.card-title {
    font-family: 'Tiro Bangla', serif;
-   font-size: 24px;
+   font-size: 38px;
 }
+
+.cards-category-name a.title {
+   font-family: 'Tiro Bangla', serif;
+   font-size: 48px;
+   color: black;
+}
+
+.cards-category-name a.title:hover {
+   color: #4F6EAC;
+}
+
+
+.cards-category-name h1.title {
+   font-family: 'Tiro Bangla', serif;
+   font-size: 18px;
+   font-weight: lighter;
+   margin-bottom: 32px;
+}
+
 
 .cards-category-name h2.card-title {
    font-family: 'Raleway', sans-serif;
@@ -258,6 +285,11 @@ button.btn-profile {
    text-align: justify;
 }
 
+.cards-category-name a.btn {
+   font-family: 'Tiro Bangla', serif;
+   color: #FFC017;
+   font-size: 20px;
+}
 
 .cards-category-name button.btn {
    font-family: 'Tiro Bangla', serif;
@@ -276,8 +308,85 @@ button.btn-profile {
    color: #F8FAF8;
 }
 
+.cards-category img.rounded-end {
+   max-width: 550px;
+   width: 100%;
+   height: 350px;
+}
+
+.cards-category a.title {
+   font-size: 28px;
+   font-family: 'Tiro Bangla', serif;
+   color: black;
+}
+
+.cards-category a.title:hover {
+   color: #4F6EAC;
+}
+
+.cards-category p.text-paragraph {
+   font-size: 18px;
+   font-family: 'Open Sans', serif;
+
+}
+
+span.name {
+   font-family: 'Open Sans', serif;
+   font-size: 48px;
+   font-weight: bold;
+   color: black;
+}
+
+/* user */
+.user-category a.title {
+   font-family: 'Tiro Bangla', serif;
+   font-size: 20px;
+   font-weight: bold;
+   color: black;
+   margin: 0;
+   padding: 0;
+}
+
+.user-category a.title:hover {
+   color: #4F6EAC;
+}
+
+/* tags */
+.tag-category a.title {
+   font-family: 'Tiro Bangla', serif;
+   font-size: 48px;
+   color: black;
+}
 
 
+.tag-category a.title:hover {
+   color: #4F6EAC;
+   transition: 0.6 ease-in-out;
+}
+
+.tag-category a.tags {
+   font-family: 'Raleway', sans-serif;
+   background-color: #B8E1FF;
+   color: black;
+   border: none;
+   font-size: 16px;
+}
+
+.tag-category a.tags:hover {
+   background-color: #98d1f9;
+   font-weight: 600;
+}
+
+.tag-category h3.card-title {
+   font-family: 'Tiro Bangla', serif;
+   font-size: 28px;
+}
+
+.tag-category h3.card-title:hover {
+   font-family: 'Tiro Bangla', serif;
+   font-size: 28px;
+   color: #4F6EAC;
+}
 
 
 
@@ -289,7 +398,7 @@ button.btn-profile {
 
 .section-footers .footer-logo {
    font-weight: 600;
-   font-size: 54px;
+   font-size: 38px;
    color: #F8FAF8;
 }
 

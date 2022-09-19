@@ -34,10 +34,17 @@ class Post extends Model
         } else {
             return null;
         }
+
+        //return Storage::url($this->image);
     }
 
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id');
     }
 }

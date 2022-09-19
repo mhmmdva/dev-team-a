@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     // });
 
     Route::prefix('users')->controller(UserController::class)->name('profile.')->group(function () {
-        Route::get('/about', 'index')->name('index');
+        Route::get('/{user:name}/about', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
         Route::get('/show', 'showList')->name('show-list');
@@ -56,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
         //Route::get('/show', 'show')->name('show');
         Route::get('/{post:slug}/edit', 'edit')->name('edit');
         Route::patch('/{post:slug}/update', 'update')->name('update');
-        //Route::delete('/{posts}', 'destroy')->name('destroy');
+        Route::delete('/{posts}', 'destroy')->name('destroy');
     });
 
     Route::prefix('tags')->controller(TagController::class)->name('tags.')->group(function () {
@@ -64,13 +65,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
         Route::get('/{tag}', 'show')->name('show');
-
-        //Route::get('/{tags}/edit', 'edit')->name('edit');
-        //Route::patch('/{tags}', 'update')->name('update');
-        //Route::delete('/{tags}', 'destroy')->name('destroy');
+        Route::get('/{tag}/edit', 'edit')->name('edit');
+        Route::put('/{tag}', 'update')->name('update');
+        Route::delete('/{tag}', 'destroy')->name('destroy');
     });
 
     Route::resource('/category', CategoryController::class);
+
+    Route::get('/like/{id}', [LikeController::class, 'like'])->name('like');
+    // Like
+    // Route::post('like', [LikeController::class, 'saveLike'])->name('like');
 });
 
 require __DIR__ . '/auth.php';

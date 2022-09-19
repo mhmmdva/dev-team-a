@@ -1,39 +1,80 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-cente cards-category-name">
 
         <h1>
-            <a href="{{ route('category.create') }}" class="text-decoration-none"> Category </a>
-            <a href="#" class="btn btn-light"></a>
+            <a href="{{ route('category.create') }}" class="title text-decoration-none"> Category </a>
         </h1>
 
     </div>
-    {{-- start cards --}}
-    @foreach ($categories as $category)
-        <div class="d-flex flex-wrap flex-md-nowrap justify-content-center align-items-center pt-3 pb-2 mb-3 ">
-            <div class="card mt-3 col-lg-8 shadow mb-5 bg-body rounded ">
 
-                <div class="row">
+    @if (session()->has('success'))
+        <div class="container">
+            <div class="alerts alert alert-success alert-dismissible fade show" role="alert">
+                <strong> {{ session('success') }}</strong> You should check it out
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
 
-                    <div class="col-lg-5 d-flex align-items-center">
-                        <div class="card-body cards-category-name">
-                            <h1 class="ms-5 card-title">{{ $category->name }}</h1>
-                            <button class="ms-5 col-lg-4 btn btn-dark">View</button>
+
+    <div class="container">
+        <div class="row mt-5">
+            @foreach ($categories as $category)
+                <div class="col-lg-4 mb-5 align-content-center justify-content-center cards-category">
+                    <div class="card">
+                        <img src="https://source.unsplash.com/500x500?{{ $category->name }}" class="card-img-top"
+                            alt="{{ $category->name }}">
+                        <div class="card-body">
+                            <h5 class=" card-title">
+                                <a href="#" class="title text-decoration-none">
+                                    {{ $category->name }}
+                                </a>
+                            </h5>
+                            <a href="#" class=" btn btn-primary">Go To Post</a>
+                            <a href="{{ route('category.edit', $category->name) }}" class="btn btn-warning">
+                                Edit <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal">
+                                Delete <i class="bi bi-trash"></i>
+                            </button>
+
+
+                            <div class="modal fade" id="Modal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content bg-danger alert-category">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-white">Are you sure?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-white">
+                                            <p>This is irreversible action, think carefully!.</p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <form action="{{ route('category.destroy', $category->name) }}" method="POST"
+                                                class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class="btn btn-dark">Delete</button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                    @foreach ($category->posts as $post)
-                        <div class="col-md-7">
-                            <img src="{{ $post->image() }}" class="rounded-end img-fluid" style="width: 100%"
-                                alt="...">
-                        </div>
-                    @endforeach
                 </div>
-
-            </div>
-
+            @endforeach
         </div>
-    @endforeach
+    </div>
 
     {{-- end cards --}}
 @endsection

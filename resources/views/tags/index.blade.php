@@ -1,27 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex justify-content-center align-items-center cards-category-name">
+    <div class="d-flex justify-content-center align-items-center tag-category">
         <h1 class="card-title">
-            <a href="{{ route('tags.create') }}" class="text-decoration-none"> Tags</a>
+            <a href="{{ route('tags.create') }}" class="title text-decoration-none"> Tags</a>
+
         </h1>
     </div>
 
+    @if (session()->has('success'))
+        <div class="container">
+            <div class="alerts alert alert-success alert-dismissible fade show" role="alert">
+                <strong> {{ session('success') }}</strong> You should check it out
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
+
     <div class="d-flex flex-wrap flex-md-nowrap justify-content-center align-items-center pt-3 pb-2 mb-3 ">
-        <div class="card mt-3 col-lg-7 shadow  bg-body rounded ">
+        <div class="card mt-3 col-lg-7 shadow  rounded bg-white">
 
             <div class="row">
 
                 <div class="col-lg-12 d-flex align-items-center ">
 
-                    <div class="card-body cards-category-name">
+                    <div class="card-body cards-category-name tag-category">
                         {{-- <h2 class="card-title py-2 border-bottom">{{ auth()->user()->name }}</h2> --}}
-                        <h3 class="card-title mt-3 text-center border-bottom border-2 border-dark">All Tags in Websites
+                        <h3 class="card-title text-center border-bottom border-2 p-1">All Tags in Websites
                         </h3>
 
                         @forelse ($tags as $tag)
                             <a href="{{ route('tags.show', $tag->name) }}"
-                                class="tags btn btn-light card-title mt-3  border rounded-5 text-decoration-none">
+                                class="tags btn btn-light card-title mt-3  border rounded text-decoration-none">
                                 #{{ $tag->name }}
                             </a>
                         @empty
@@ -47,10 +57,9 @@
 
                     </div>
                 </div>
-
+                {{-- {{ $tags->links() }} --}}
             </div>
 
         </div>
     </div>
-
 @endsection
