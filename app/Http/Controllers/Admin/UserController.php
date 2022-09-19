@@ -6,20 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Category;
+use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(User $user)
+    public function index(User $user,)
     {
         // about user
-        return view('users.about', [
-            'title' => 'About',
-            'active' => 'About',
-            'user' => User::get(),
+        $post = Post::get();
 
+        return view('users.about', [
+            'active' => 'About',
+            'post' => $post,
+            'title' => 'About',
+            'user' => $user,
         ]);
     }
 
@@ -37,8 +41,8 @@ class UserController extends Controller
     {
         // list user crud
         return view('users.list-user', [
-            'title' => 'User',
             'active' => 'User',
+            'title' => 'User',
             'user' => User::get(),
         ]);
     }
@@ -46,9 +50,10 @@ class UserController extends Controller
     // // show profile
     public function showProfile(User $user)
     {
-        return view('profile.show', compact('user'), [
-            'title' => 'User',
+        return view('profile.show', [
             'active' => 'User',
+            'title' => 'User',
+            'user' => $user,
         ]);
     }
 
@@ -56,8 +61,8 @@ class UserController extends Controller
     public function editProfile(User $user)
     {
         return view('profile.edit-profile', [
-            'title' => 'User',
             'active' => 'User',
+            'title' => 'User',
             'user' => $user,
         ]);
     }
@@ -67,8 +72,8 @@ class UserController extends Controller
     {
         $userServices->handleUpdateProfile($request, $user);
         return redirect()->route('profile.edit-profile', [
-            'title' => 'UpdatePro',
             'active' => 'UpdatePro',
+            'title' => 'UpdatePro',
             'user' => $user,
         ]);
     }
@@ -77,18 +82,18 @@ class UserController extends Controller
     public function editPassword(User $user)
     {
         return view('profile.edit-password', [
-            'title' => 'Edit',
             'active' => 'Edit',
+            'title' => 'Edit',
             'user' => $user,
         ]);
-    } 
- 
+    }
+
     public function updatePassword(UpdatePasswordRequest $request, User $user, UserServices $userServices)
     {
         $userServices->handleUpdatePassword($request, $user);
         return redirect()->route('profile.edit-password', [
-            'title' => 'Update',
             'active' => 'Update',
+            'title' => 'Update',
             'user' => $user
         ]);
     }
