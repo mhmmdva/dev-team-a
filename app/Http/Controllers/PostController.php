@@ -12,18 +12,24 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Category $category, Tag $tag, User $user)
     {
-        // $categories = Category::all();
-        $tags = Tag::all();
-        // $users = User::all();
-        $posts = Post::get();
+        $categories = Category::all();
+        $users = User::all();
+        $post = Post::get();
+        $posts = $tag->posts()->with('user', 'category', 'tags')->paginate(10);
+        $tag = Tag::all();
 
-        return view('dashboard.index', [
-            'title' => 'Dashboard',
+        //dd($user);
+
+        return view('posts.homes', [
             'active' => 'Dashboard',
+            'category' => $category,
             'posts' => $posts,
-            'tags' => $tags,
+            'user' => $user,
+            'post' => $post,
+            'title' => 'Dashboard',
+            'tag' => $tag,
         ]);
     }
 
@@ -38,8 +44,6 @@ class PostController extends Controller
             'categories' => $categories,
             'tags' => $tags,
         ]);
-
-        return view('posts.create', compact('categories', 'tags'));
     }
 
     public function store(PostRequest $request, PostServices $postServices)
@@ -56,9 +60,11 @@ class PostController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('posts.edit', compact('post', 'categories', 'tags'), [
-            'title' => 'Post Create',
+        return view('posts.edit', [
             'active' => 'Post',
+            'title' => 'Edit Post',
+            'categories' => $categories,
+            'tags' => $tags,
         ]);
     }
 
@@ -82,7 +88,7 @@ class PostController extends Controller
         $post->update([
             'bookmark' => $post->bookmark ? false : true,
         ]);
-            
+
         return back();
     }
 }

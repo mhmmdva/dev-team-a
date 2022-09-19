@@ -4,15 +4,6 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-
-                {{-- success notification --}}
-                @if (session()->has('success-update-password'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success-update-password') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-
                 <h1 class="mb-3" style="font-weight: 700;">
                     <div>
                         <span>Edit Profile for </span>
@@ -23,11 +14,12 @@
                 <nav class="navbar navbar-expand-lg">
                     <div id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="{{ route('profile.edit-profile', $user->username) }}">Profile</a>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ route('profile.edit-profile', $user->username) }}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="{{ route('profile.edit-password', $user->username) }}">Password</a>
+                                <a class="nav-link"
+                                    href="{{ route('profile.edit-password', $user->username) }}">Password</a>
                             </li>
                         </ul>
                     </div>
@@ -88,7 +80,8 @@
                             <div class="row mb-3 mx-5 float-end">
                                 <div class="col-md">
                                     <button type="submit" class="btn btn-primary"
-                                        style="width: 12rem; height:2.5rem; background-color: #5DAAC4; border-color:#5DAAC4;">Set New Password</button>
+                                        style="width: 12rem; height:2.5rem; background-color: #5DAAC4; border-color:#5DAAC4;">Set
+                                        New Password</button>
                                 </div>
                             </div>
                         </form>
