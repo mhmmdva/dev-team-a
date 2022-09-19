@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdatePasswordRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Models\Category;
+use App\Models\Post;
 use App\Models\User;
-use App\Services\UserServices;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Services\UserServices;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 
 class UserController extends Controller
 {
@@ -47,9 +48,13 @@ class UserController extends Controller
     // // show profile
     public function showProfile(User $user)
     {
-        return view('profile.show', compact('user'), [
+        $posts = Post::get()->where('user_id', $user->id);
+
+        return view('profile.show',  [
             'title' => 'User',
             'active' => 'User',
+            'user' => $user,
+            'posts' => $posts
         ]);
     }
 
