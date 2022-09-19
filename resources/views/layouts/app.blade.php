@@ -22,9 +22,9 @@
                             {{-- start ul navbar --}}
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ $active === 'Dashboard' ? 'active' : '' }} "
-                                        aria-current="page" href="{{ route('posts.index') }}">
-                                        <i class='bx bx-home-alt me-1'></i>Dashboard</a>
+                                    <a class="nav-link {{ $active === 'Home' ? 'active' : '' }} " aria-current="page"
+                                        href="{{ route('home.index') }}">
+                                        <i class='bx bx-home-alt me-1'></i>Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ $active === 'Post' ? 'active' : '' }} "
@@ -116,6 +116,8 @@
     </main>
 
     @extends('layouts.footer')
+
+    @stack('script')
 </body>
 
 </html>

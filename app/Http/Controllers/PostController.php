@@ -22,7 +22,7 @@ class PostController extends Controller
 
         //dd($user);
 
-        return view('posts.homes', [
+        return view('home', [
             'active' => 'Dashboard',
             'category' => $category,
             'posts' => $posts,
@@ -44,7 +44,6 @@ class PostController extends Controller
             'categories' => $categories,
             'tags' => $tags,
         ])->with('success-create-post', 'Post successfully created!');
-
     }
 
     public function store(PostRequest $request, PostServices $postServices)
