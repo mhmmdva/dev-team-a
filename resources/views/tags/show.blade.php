@@ -26,7 +26,7 @@
                                 @endforeach
                             </h3> --}}
                             <h1 class="card-title">{{ $post->title }}</h1>
-                            <h6 class="text-muted">author : {{ auth()->user()->name }}</h6>
+                            <h6 class="text-muted">author : {{ $post->user->username  }}</h6>
 
                             @foreach ($post->tags as $tag)
                                 <a href="{{ route('tags.show', $tag->name) }}" class="col text-decoration-none">

@@ -8,41 +8,52 @@
         </div>
     </div>
     <h3 style="margin-left: 75px; margin-top: 20px;">Trending</h3>
-    @forelse ($posts as $post)
-            <div class="card" style="width: 18rem; margin-left: 75px; margin-bottom: 10px;">
-                <div class="card-body">
-                    @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                    <a href="{{ route('posts.show', $post->slug) }}">
-                        <h5 class="card-title">{{ $post->title }}</h5>
-                    </a>
-                    @foreach ($post->tags as $tag )
-                                <a href="{{ route('tags.index', $tag->slug) }}" class="text-decoration-none" >
-                                    <span class="badge rounded-pill text-bg-secondary mb-2">#{{ $tag->name }}</span>
-                                </a>
-                    @endforeach
-                    <div class="mt-3 d-flex justify-content-between">
-                        <button type="button" class="likes btn btn-danger position-relative me-lg-5 p-1 m-0 fs-6">
-                            <i class="bi bi-heart"></i> <i class='bx bx-like align-middle'></i> Likes
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">+22
-                                <span class="visually-hidden">unread messages</span>
-                            </span>
-                        </button>
+    <div class="container">
+        <div class="row justify-content-start">
+            @forelse ($posts as $post)
+                <div class="col-lg-4">
+                    <div class="card" style="margin-left: 75px; margin-bottom: 10px;">
+                        <div class="card-body">
+                            @if (session('status'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+                            <a href="{{ route('posts.show', $post->slug) }}" class="text-decoration-none text-dark">
+                                @if (strlen($post->title) > 20)
+                                    <h5 class="card-title">{{ substr($post->title, 0, 20) }}...</h5>
+                                @else
+                                    <h5 class="card-title">{{ $post->title }}</h5>
+                                @endif
+                                <h6 class="text-muted">Posted by : {{ $post->user->username  }}</h6>
+                            </a>
+                            @foreach ($post->tags as $tag )
+                                        <a href="{{ route('tags.index', $tag->slug) }}" class="text-decoration-none" >
+                                            <span class="badge rounded-pill text-bg-secondary mb-2">#{{ $tag->name }}</span>
+                                        </a>
+                            @endforeach
+                            <div class="mt-3 d-flex justify-content-between">
+                                <button type="button" class="likes btn btn-danger position-relative me-lg-5 p-1 m-0 fs-6">
+                                    <i class="bi bi-heart"></i> <i class='bx bx-like align-middle'></i> Likes
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">+22
+                                        <span class="visually-hidden">unread messages</span>
+                                    </span>
+                                </button>
 
-                        <button type="button" class="btn btn-outline-warning">
-                            <i class="bi bi-bookmark-star"></i>
-                        </button>
-                   </div>
+                                <button type="button" class="btn btn-outline-warning">
+                                    <i class="bi bi-bookmark-star"></i>
+                                </button>
+                           </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            @empty
-            <p>No posts yet.</p>
-                    {{ $posts->links() }}
+                @empty
+                <p style="margin-left: 75px; margin-top: 20px;">No posts yet.</p>
+                        {{ $posts->links() }}
+                    </div>
                 </div>
-            </div>
-    @endforelse
+            @endforelse
+        </div>
+    </div>
 @endsection

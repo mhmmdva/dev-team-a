@@ -65,4 +65,10 @@ class PostServices
 
         $post->update($data);
     }
+
+    public function handleDestroy($post)
+    {
+        Storage::delete($post->image);
+        $post->delete();
+    }
 }
