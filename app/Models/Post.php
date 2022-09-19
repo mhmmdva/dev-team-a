@@ -49,8 +49,13 @@ class Post extends Model
     //     Like::class,
     // ];
 
-    public function bookmark()
+    public function bookmarks()
     {
-        return $this->belongsToMany(Bookmark::class);
+        return $this->belongsToMany(User::class, 'bookmarks', 'post_id', 'user_id');
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id');
     }
 }

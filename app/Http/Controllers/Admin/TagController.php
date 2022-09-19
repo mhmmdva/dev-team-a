@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TagRequest;
 use App\Models\Category;
+use App\Models\Like;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class TagController extends Controller
     {
         $active = 'Tags';
         $categories = Category::all();
-        $posts = $tag->posts()->with('user', 'category', 'tags')->paginate(10);
+        $posts = $tag->posts()->with('user', 'category', 'tags', 'likes')->paginate(10);
         $title = 'Tags';
 
         return view('tags.show', [

@@ -66,6 +66,7 @@ class PostController extends Controller
             'title' => 'Edit Post',
             'categories' => $categories,
             'tags' => $tags,
+            'post' => $post,
         ]);
     }
 
@@ -75,8 +76,7 @@ class PostController extends Controller
         $this->authorize('owner', $post);
 
         $postServices->handleUpdate($request, $post);
-
-        return redirect()->route('post.show')
+        return redirect()->route('posts.show', $post->slug)
             ->with('success-edit-post', 'Post successfully updated!');
     }
 
@@ -87,6 +87,15 @@ class PostController extends Controller
             'title' => 'Post.show',
             'active' => 'Post',
         ]);
+    }
+
+    public function destroy(Post $post, PostServices $postServices)
+    {
+        $this->authorize('owner', $post);
+
+        $postServices->handleDestroy($post);
+
+        return redirect()->route('home.index', auth()->user()->username);
     }
 
     public function bookmark(Post $post)
