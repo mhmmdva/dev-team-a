@@ -40,4 +40,9 @@ class Post extends Model
     {
         return 'slug';
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id');
+    }
 }

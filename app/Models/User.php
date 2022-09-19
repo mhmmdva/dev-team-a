@@ -81,4 +81,9 @@ class User extends Authenticatable
             return asset('assets/users/images/default-profile-photo.jpg');
         }
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');
+    }
 }

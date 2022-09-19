@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,10 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('/category', CategoryController::class);
+
+    Route::get('/like/{id}', [LikeController::class, 'like'])->name('like');
+    // Like
+    // Route::post('like', [LikeController::class, 'saveLike'])->name('like');
 });
 
 require __DIR__ . '/auth.php';
