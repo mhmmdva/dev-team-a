@@ -2,15 +2,16 @@
 
 @section('content')
     <div class="container">
-        <div class="row d-flex justify-content-center align-items-center ">
-            <div class="card col-lg-8 mt-5 mb-5 cards-category-name p-4">
-                <h1 class="mt-3 card-title">Create Tags</h1>
-                <form action="{{ route('tags.store') }}" method="POST" class="d-inline-block col-lg-12 mt-1 mb-5">
-                    @csrf
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Input tags name">
-                    <button type="submit" class="mt-4 btn btn-dark">Create</button>
-                </form>
-            </div>
+        <div class="mt-4 mb-5 col-lg-10">
+            <h1>Create Your Tag</h1>
+            <form method="post" action="{{ route('tags.store') }}">
+                @csrf
+                <div class="mt-3">
+                    <ltbel for="name" name="name" class="form-label">Tags</ltbel>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Tags">
+                </div>
+                <button type="submit" class="mt-3 btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
 @endsection

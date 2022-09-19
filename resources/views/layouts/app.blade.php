@@ -7,7 +7,7 @@
 
             {{-- start header --}}
             <header>
-                <nav class="navbar navbar-expand-lg navbar-dark navbar-on ">
+                <nav class="navbar navbar-expand-lg navbar-dark navbar-on">
                     <div class="container-fluid ">
                         <a class="logo text-decoration-none" href="{{ route('home.index') }}">
                             Dev Team A
@@ -99,7 +99,7 @@
 
 
 
-    <main class="py-4">
+    <main class="">
         @yield('content')
     </main>
 
@@ -107,7 +107,6 @@
 
 
     @extends('layouts.footer')
-    @stack('script')
 </body>
 
 </html>

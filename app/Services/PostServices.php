@@ -17,7 +17,7 @@ class PostServices
         $data['slug'] = str()->slug($data['title']);
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('public/images/post');
+            $image = $request->file('image')->store('images/post');
             $data['image'] = $image;
         }
 
@@ -46,7 +46,7 @@ class PostServices
             if (!is_null($post->image)) {
                 Storage::delete($post->image);
             }
-            $image = $request->file('image')->store('public/images/post');
+            $image = $request->file('image')->store('images/post');
             $data['image'] = $image;
         }
 

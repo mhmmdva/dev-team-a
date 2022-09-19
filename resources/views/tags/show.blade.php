@@ -1,68 +1,124 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex justify-content-center align-items-center cards-category-name">
-        <h1 class="card-title">
-            <a href="{{ route('tags.create') }}" class="text-decoration-none"> Tags</a>
-            <a href="" class="btn btn-light">#{{ $tag->name }}</a>
-            <div class="card-header">
-                Posts By <span class="badge rounded-pill text-bg-secondary mb-2">#{{ $tag->name }}</span>
+    <div class="container">
+        <nav aria-label=" breadcrumb" class="border-bottom">
+            <ol class="mt-3 breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" class="{{ $active === 'User' ? 'active' : '' }}  text-muted text-decoration-none">Home
+                    </a>
+                </li>
 
-            </div>
-        </h1>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('tags.index') }}"
+                        class="{{ $active === 'List' ? 'active' : '' }} text-muted text-decoration-none">List
+                    </a>
+                </li>
+
+                <li class="breadcrumb-item">
+                    <a href="{{ route('tags.show') }}"
+                        class="{{ $active === 'List' ? 'active' : '' }}  text-decoration-none">Show
+                    </a>
+                </li>
+
+                <li class="breadcrumb-item active">
+                    <a href="{{ route('tags.create') }}"
+                        class="{{ $active === 'Category' ? 'active' : '' }} text-muted text-decoration-none">Create
+                    </a>
+                </li>
+
+            </ol>
+        </nav>
     </div>
 
-    @forelse ($posts as $post)
-        <div class="d-flex justify-content-center align-items-center pt-3 pb-2 mb-3 ">
-
-            <div class="card mt-3 col-lg-7 shadow  bg-body rounded ">
-                <div class="row">
-                    <div class="col-lg-12 d-flex align-items-center ">
-                        <div class="card-body cards-category-name">
-                            {{-- <h3 class="card-title mt-3 text-center border-bottom border-2 border-dark">
-                                @foreach ($post->tags as $tag)
-                                    Posts By : <span
-                                        class="badge rounded-pill text-bg-secondary mb-2">#{{ $tag->name }}</span>
-                                @endforeach
-                            </h3> --}}
-                            <h1 class="card-title">{{ $post->title }}</h1>
-                            <h6 class="text-muted">author : {{ auth()->user()->name }}</h6>
-
-                            @foreach ($post->tags as $tag)
-                                <a href="{{ route('tags.show', $tag->name) }}" class="col text-decoration-none">
-                                    <span class="badge rounded-pill text-bg-secondary mb-2">#{{ $tag->name }}</span>
+    <div class="container">
+        <div class="mt-4 mb-5 table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Created_At</th>
+                        <th scope="col">Updated_At</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody class=" table-group-divider">
+                    @foreach ($tags as $tag)
+                        <tr>
+                            <td>{{ $tag->name }}</td>
+                            <td>{{ $tag->updated_at->format('Y-M-d / H:i:s') }}</td>
+                            <td>{{ $tag->created_at->format('Y-M-d / H:i:s') }}</td>
+                            <td>
+                                <a href="{{ route('tags.create') }}" class="btn btn-primary btn-sm"
+                                    data-bs-target="#ModalCreate" data-bs-toggle="modal">
+                                    <i class="bi bi-plus-lg"></i>
+                                    Create
                                 </a>
-                            @endforeach
-
-
-                            <div class="mt-3 d-flex justify-content-between">
-
-                                <button type="button" class="likes btn btn-danger position-relative me-lg-5 p-1 m-0 fs-6">
-                                    <i class="bi bi-heart"></i> <i class='bx bx-like align-middle'></i> Likes
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">+22
-                                        <span class="visually-hidden">unread messages</span>
-                                    </span>
+                                <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-warning btn-sm text-white">
+                                    <i class="bi bi-pencil"></i>
+                                    Edit
+                                </a>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#Modal{{ $tag->id }}">
+                                    <i class="bi bi-trash"></i>
+                                    Delete
                                 </button>
+                            </td>
+                        </tr>
+                        {{-- Modal Create --}}
+                        <div class="modal fade" id="ModalCreate" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content bg-light">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark">Create Tag</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="{{ route('tags.store') }}" method="POST" class="d-inline-block">
+                                            @csrf
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                placeholder="Input Tag Name">
 
-                                <button type="button" class="btn btn-outline-warning">
-                                    <i class="bi bi-bookmark-star"></i>
-                                </button>
-
-
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-dark">Create</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
 
-                    </div>
+                        {{-- Modal Delete --}}
+                        <div class="modal fade" id="Modal{{ $tag->id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content bg-danger">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-white">Are you sure?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-white">
+                                        <p>This is irreversible action, think carefully!.</p>
+                                    </div>
 
-                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                        <form action="{{ route('tags.destroy', $tag->id) }}" method="POST"
+                                            class="d-inline-block">
+                                            @csrf
+                                            @method('DELETE')
 
-            </div>
+                                            <button type="submit" class="btn btn-dark">Delete</button>
+                                        </form>
+                                    </div>
 
-
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    @empty
-        <p>No Post Yet.</p>
-    @endforelse
+    </div>
 @endsection

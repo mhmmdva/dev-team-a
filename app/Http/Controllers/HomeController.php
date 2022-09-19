@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -23,9 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $posts = Post::with('user')->paginate(5);
+
         return view('home', [
             'title' => 'Home',
             'active' => 'Home',
+            'posts' => $posts,
         ]);
     }
 }

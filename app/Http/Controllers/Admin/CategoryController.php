@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\Post;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,16 +18,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(5);
-        $tags = Tag::all();
-        $posts = Post::all();
-
         return view('category.index', [
             'title' => 'Category',
             'active' => 'Category',
-            'categories' => $categories,
-            'tags' => $tags,
-            'posts' => $posts,
+            'category' => Category::get(),
         ]);
     }
 
@@ -37,17 +30,12 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $category)
+    public function create()
     {
-        //$category = Category::all();
-        //dd($category);
-
-        $tags = Tag::all();
         return view('category.create', [
-            'title' => 'Create Category',
+            'title' => 'Category Create',
             'active' => 'Category',
-            'category' => $category,
-            'tags' => $tags,
+            'category' => Category::get(),
         ]);
     }
 
@@ -61,8 +49,6 @@ class CategoryController extends Controller
     {
         $data = $categoryRequest->validated();
 
-        //$data['slug'] = str()->slug($data['name']);
-
         Category::create($data);
 
         return redirect()->route('category.index');
@@ -74,17 +60,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        $posts = $category->posts()->with('user', 'category', 'tags')->paginate(10);
-        $categories = Category::all();
-        $tags = Tag::all();
-        return view('categories.show',  [
-            'categories' => $categories,
-            'posts' => $posts,
-            'category' => $category,
-            'tags' => $tags,
-        ]);
+        //
     }
 
     /**
@@ -93,13 +71,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        return view('category.edit', [
-            'title' => 'Edit Category',
-            'active' => 'Category',
-            'category' => $category,
-        ]);
+        //
     }
 
     /**

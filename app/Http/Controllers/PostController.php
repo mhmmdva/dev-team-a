@@ -6,27 +6,11 @@ use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
-use App\Models\User;
 use App\Services\PostServices;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
-    {
-        // $categories = Category::all();
-        $tags = Tag::all();
-        // $users = User::all();
-        $posts = Post::get();
-
-        return view('dashboard.index', [
-            'title' => 'Dashboard',
-            'active' => 'Dashboard',
-            'posts' => $posts,
-            'tags' => $tags,
-        ]);
-    }
-
     public function create()
     {
         $categories = Category::all();
@@ -39,16 +23,14 @@ class PostController extends Controller
             'tags' => $tags,
         ]);
 
-        return view('posts.create', compact('categories', 'tags'))
-            ->with('success-create-post', 'Post successfully created!');
+        return view('posts.create', compact('categories', 'tags'));
     }
 
     public function store(PostRequest $request, PostServices $postServices)
     {
         $postServices->handleStore($request);
 
-        return redirect()->route('home.index')
-            ->with('success-create-post', 'Post successfully created!');
+        return redirect()->route('home.index');
     }
 
     public function edit(Post $post)
@@ -71,21 +53,15 @@ class PostController extends Controller
 
         $postServices->handleUpdate($request, $post);
 
-        return redirect()->route('home.index')
-            ->with('success-edit-post', 'Post successfully updated!');
+        return redirect()->route('post.show', $post->slug);
     }
 
-    public function bookmark(Post $post)
+    public function show(Post $post)
     {
-        // boolean (left = false)
-        // boolean (right = true)
-        // $post->bookmark = !$post->bookmark;
-        // $post->save();
-
-        $post->update([
-            'bookmark' => $post->bookmark ? false : true,
+        return view('posts.show', [
+            'post' => $post,
+            'title' => 'Post.show',
+            'active' => 'Post',
         ]);
-
-        return back();
     }
 }

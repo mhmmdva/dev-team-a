@@ -11,24 +11,8 @@ class Tag extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-
     public function posts()
     {
-        return $this->belongsToMany((Post::class));
+        return $this->belongsToMany(Post::class);
     }
-
-    public function users()
-    {
-        return $this->hasMany((User::class));
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'name';
-    }
-
-    // public function posts()
-    // {
-    //     return $this->belongsToMany(Tag::class, 'post_tag', 'tag_id', 'post_id');
-    // }
 }
