@@ -30,13 +30,23 @@
                                 </div>
 
                                 <div class="mt-3 d-flex justify-content-between" style="margin-left: 10px; margin-bottom: 10px;">
-                                    <button type="button" class="likes btn btn-danger position-relative me-lg-5 p-1 m-0 fs-6">
-                                        <i class="bi bi-heart"></i> <i class='bx bx-like align-middle'></i> Likes
-                                        <span
-                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">+22
-                                            <span class="visually-hidden">unread messages</span>
+                                    <span class="likes position-relative me-lg-5 p-1 m-0 fs-6">
+                                        <a href="{{ route('like', $post->id) }}" class=" text-decoration-none text-dark">
+                                            <i onclick="changeIconLikes(this)" class="bi bi-heart text-danger" id="likesIcon"></i>
+                                        </a>
+                                        <span type="button">
+                                            @if ($post->likes()->count() > 0)
+                                                <span id="showUserList" data-toggle="modal" data-target="#userModal{{ $post->id }}"
+                                                    class="font-weight-bold">
+                                                    @if ($post->likes()->count() == 1)
+                                                        {{ $post->likes()->count() }} Like
+                                                    @else
+                                                        {{ $post->likes()->count() }} Likes
+                                                    @endif
+                                                </span>
+                                            @endif
                                         </span>
-                                    </button>
+                                    </span>
 
                                     <button type="button" class="btn btn-outline-warning" style="margin-right: 10px;">
                                         <i class="bi bi-bookmark-star"></i>
@@ -48,4 +58,29 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="userModal{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+            <h5 class="modal-title" id="userModal">{{$post->likes->count()}} people that likes "{{$post->title}}"</h5>
+            <div type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </div>
+            </div>
+            <div class="modal-body">
+                @foreach ($post->likes as $users)
+                    <div>
+                        <img src="{{ $users->photo() }}" width="40" height="40" class="rounded-circle mb-2"> {{$users->name}}
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        </div>
+    </div>
 @endsection
+
+@push('script')
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+@endpush

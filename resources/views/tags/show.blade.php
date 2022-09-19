@@ -76,7 +76,7 @@
                                     </a>
                                     <span type="button">
                                         @if ($post->likes()->count() > 0)
-                                            <span id="showUserList" data-toggle="modal" data-target="#userModal{{ $post->id }}"
+                                            <span id="showUserList" data-toggle="modal" data-target="#userModal"
                                                 class="font-weight-bold">
                                                 @if ($post->likes()->count() == 1)
                                                     {{ $post->likes()->count() }} Like
@@ -106,27 +106,21 @@
 
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="userModal{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header border-0">
                 <h5 class="modal-title" id="userModal">{{$post->likes->count()}} people that likes "{{$post->title}}"</h5>
                 <div type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </div>
                 </div>
                 <div class="modal-body">
-                    @forelse ($post->likes as $like)
+                    @foreach ($post->likes as $users)
                         <div>
-                            <img src="{{ $like->photo() }}" width="40" height="40" class="rounded-circle mb-2"> {{$like->name}}
+                            <img src="{{ $users->photo() }}" width="40" height="40" class="rounded-circle mb-2"> {{$users->name}}
                         </div>
-
-                    @empty
-                        no data!
-                    @endforelse
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    @endforeach
                 </div>
             </div>
             </div>
@@ -138,13 +132,5 @@
 
 @push('script')
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> --}}
-
-    {{-- <script>
-        $(document).ready(function(){
-            $('#likesIcon').click(function(){
-                $(#likesIcon).toggleClass('bi bi-heart-fill text-danger');
-            });
-        });
-    </script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 @endpush
