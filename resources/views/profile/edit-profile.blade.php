@@ -3,7 +3,17 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
+
             <div class="col-md-8">
+
+                {{-- success notification --}}
+                @if (session()->has('success-update-profile'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success-update-profile') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
                 <h1 class="mb-3" style="font-weight: 700;">
                     <div>
                         <span>Edit Profile for </span>
@@ -19,7 +29,7 @@
                                     href="{{ route('profile.edit-profile', $user->username) }}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark"
+                                <a class="nav-link text-secondary"
                                     href="{{ route('profile.edit-password', $user->username) }}">Password</a>
                             </li>
                         </ul>
@@ -33,40 +43,47 @@
                             @csrf
                             @method('PATCH')
 
-                            {{-- photo --}}
                             <div class="row my-3 mx-5">
-                                <h2 style="color: #5DAAC4; font-weight: 700">User</h2>
-                                <label for="photo">Photo</label>
+                                <h2 class="mb-4" style="color: #5DAAC4; font-weight: 700">User</h2>
+                                <div class="d-flex align-items-center">
 
-                                <div class="col-md">
-                                    <input id="photo" type="file"
-                                        class="form-control @error('photo') is-invalid @enderror" name="photo"
-                                        value="{{ old('photo') ?? $user->photo() }}" autofocus>
+                                    {{-- photo --}}
+                                    <div class="col-2" style="position: relative;">
 
-                                    @error('photo')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        <input id="changeProfilePhoto" type="file" class="d-none @error('photo') is-invalid @enderror"
+                                        name="photo" value="{{ old('photo') }}" autofocus accept="image/*">
+
+                                        <a href="#" onclick="document.getElementById('changeProfilePhoto').click();">
+                                            <i class="fa fa-camera rounded-circle p-3"
+                                                style="color:black;top: 50%;left: 50%;position: absolute;transform: translate(-50%, -50%);
+                                                    background-color:#5DAAC4; opacity: 0.8; cursor: pointer;">
+                                            </i>
+                                        </a>
+
+                                        <img src="{{ $user->photo() }}" alt='profile-photo' class="rounded-circle w-100 cropped">
+                                        @error('photo')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    {{-- name --}}
+                                    <div class="flex-grow-1 ms-5">
+                                        <label for="name">Name</label>
+                                        <input id="name" type="text"
+                                            class="form-control @error('name') is-invalid @enderror" name="name"
+                                            value="{{ auth()->user()->name }}" autofocus>
+
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
 
-                            {{-- name --}}
-                            <div class="row mb-3 mx-5">
-                                <label for="name">Name</label>
-
-                                <div class="col-md mb-4">
-                                    <input id="name" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ auth()->user()->name }}" autofocus>
-
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
                             {{-- button --}}
                             <div class="row mb-3 mx-5 float-end">
                                 <div class="col-md">
@@ -81,3 +98,39 @@
         </div>
     </div>
 @endsection
+
+@push('head')
+    {{-- font awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
+
+    {{-- toastr notification --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+
+    {{-- ijabo crop tool --}}
+    <link rel="stylesheet" href="{{ asset('ijaboCropTool/ijaboCropTool.min.css') }}"/>
+@endpush
+
+@push('script')
+    {{-- toastr notification --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/js/toastr.js"></script>
+
+    {{-- ijabo crop tool --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('ijaboCropTool/ijaboCropTool.min.js') }}"></script>
+
+    <script>
+        $('#changeProfilePhoto').ijaboCropTool({
+            preview : '.cropped',
+            setRatio:1,
+            allowedExtensions: ['jpg', 'jpeg','png'],
+            buttonsText:['CROP','QUIT'],
+            buttonsColor:['#FFC017','#EDF1F7', -15],
+            processUrl:'{{ route("profile.change-profile-photo", $user->username) }}',
+            withCSRF:['_token','{{ csrf_token() }}'],
+            onError:function(message, element, status){
+                alert(message);
+          }
+        });
+   </script>
+@endpush

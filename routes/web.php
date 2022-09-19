@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
@@ -23,11 +24,16 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
     Route::resource('posts', PostController::class)->except('index');
+
+    // Route::prefix('dashboard')->controller(DashboardController::class)->name('dashboard.')->group(function () {
+    //     Route::get('/', 'index')->name('index');
+    //     Route::get('/create', 'create')->name('create');
+    //     Route::post('/', 'store')->name('store');
+    // });
 
     Route::prefix('users')->controller(UserController::class)->name('profile.')->group(function () {
         Route::get('/about', 'index')->name('index');
@@ -39,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/{user:username}/update-profile', 'updateProfile')->name('update-profile');
         Route::get('/{user:username}/edit-password', 'editPassword')->name('edit-password');
         Route::patch('/{user:username}/update-password', 'updatePassword')->name('update-password');
+        Route::post('/{user:username}/change-profile-photo', 'changeProfilePhoto')->name('change-profile-photo');
     });
 
 
@@ -56,13 +63,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
-        Route::get('/show', 'show')->name('show');
-        Route::get('/{tags}/edit', 'edit')->name('edit');
-        Route::patch('/{tags}', 'update')->name('update');
-        Route::delete('/{tags}', 'destroy')->name('destroy');
+        Route::get('/{tag}', 'show')->name('show');
+
+        //Route::get('/{tags}/edit', 'edit')->name('edit');
+        //Route::patch('/{tags}', 'update')->name('update');
+        //Route::delete('/{tags}', 'destroy')->name('destroy');
     });
-
-
 
     Route::resource('/category', CategoryController::class);
 });

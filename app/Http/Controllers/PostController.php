@@ -6,11 +6,27 @@ use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use App\Services\PostServices;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function index()
+    {
+        // $categories = Category::all();
+        $tags = Tag::all();
+        // $users = User::all();
+        $posts = Post::get();
+
+        return view('dashboard.index', [
+            'title' => 'Dashboard',
+            'active' => 'Dashboard',
+            'posts' => $posts,
+            'tags' => $tags,
+        ]);
+    }
+
     public function create()
     {
         $categories = Category::all();
@@ -23,14 +39,16 @@ class PostController extends Controller
             'tags' => $tags,
         ]);
 
-        return view('posts.create', compact('categories', 'tags'));
+        return view('posts.create', compact('categories', 'tags'))
+            ->with('success-create-post', 'Post successfully created!');
     }
 
     public function store(PostRequest $request, PostServices $postServices)
     {
         $postServices->handleStore($request);
 
-        return redirect()->route('home.index');
+        return redirect()->route('home.index')
+            ->with('success-create-post', 'Post successfully created!');
     }
 
     public function edit(Post $post)
@@ -53,7 +71,8 @@ class PostController extends Controller
 
         $postServices->handleUpdate($request, $post);
 
-        return redirect()->route('post.show', $post->slug);
+        return redirect()->route('post.show')
+            ->with('success-edit-post', 'Post successfully updated!');
     }
 
     public function show(Post $post)
@@ -63,5 +82,19 @@ class PostController extends Controller
             'title' => 'Post.show',
             'active' => 'Post',
         ]);
+    }
+
+    public function bookmark(Post $post)
+    {
+        // boolean (left = false)
+        // boolean (right = true)
+        // $post->bookmark = !$post->bookmark;
+        // $post->save();
+
+        $post->update([
+            'bookmark' => $post->bookmark ? false : true,
+        ]);
+
+        return back();
     }
 }

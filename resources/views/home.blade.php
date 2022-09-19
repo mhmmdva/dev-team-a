@@ -7,9 +7,9 @@
                 <p class="text-white" style="font-family: Open Sans; text-align: justify">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, similique? Porro quisquam aut harum autem fuga nam? Optio placeat nulla vitae ipsa esse facilis neque cum sint, expedita dicta delectus totam corrupti amet suscipit eum reprehenderit nam consequatur ipsum incidunt iure dolorum quia. Voluptas, enim placeat non modi quaerat veritatis?</p>
         </div>
     </div>
-    <h3>Trending</h3>
+    <h3 style="margin-left: 75px; margin-top: 20px;">Trending</h3>
     @forelse ($posts as $post)
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 18rem; margin-left: 75px; margin-bottom: 10px;">
                 <div class="card-body">
                     @if (session('status'))
                             <div class="alert alert-success" role="alert">
