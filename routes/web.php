@@ -4,9 +4,11 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -58,7 +60,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{post:slug}/edit', 'edit')->name('edit');
         Route::patch('/{post:slug}/update', 'update')->name('update');
         Route::delete('/{posts}', 'destroy')->name('destroy');
-        Route::post('{post}/bookmark', 'bookmark')->name('bookmark');
     });
 
     Route::prefix('tags')->controller(TagController::class)->name('tags.')->group(function () {
@@ -74,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/category', CategoryController::class);
 
     Route::get('/like/{id}', [LikeController::class, 'like'])->name('like');
+    Route::get('/bookmark/{id}', [BookmarkController::class, 'bookmark'])->name('bookmark');
     // Like
     // Route::post('like', [LikeController::class, 'saveLike'])->name('like');
 });

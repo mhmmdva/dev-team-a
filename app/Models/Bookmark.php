@@ -9,15 +9,15 @@ class Bookmark extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['post_id', 'user_id'];
 
-    public function posts()
-    {
-        return $this->belongsToMany(Bookmark::class);
-    }
+    // public function posts()
+    // {
+    //     return $this->belongsToMany(Bookmark::class);
+    // }
 
-    public function user()
-    {
-        return $this->belongsTo(Bookmark::class);
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(Bookmark::class);
+    // }
 }

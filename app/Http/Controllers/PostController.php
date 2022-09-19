@@ -98,17 +98,17 @@ class PostController extends Controller
         return redirect()->route('home.index', auth()->user()->username);
     }
 
-    public function bookmark(Post $post)
-    {
-        // boolean (left = false)
-        // boolean (right = true)
-        // $post->bookmark = !$post->bookmark;
-        // $post->save();
+    // public function bookmark(Post $post)
+    // {
+    //     boolean (left = false)
+    //     boolean (right = true)
+    //     $post->bookmark = !$post->bookmark;
+    //     $post->save();
 
-        $post->update([
-            'bookmark' => $post->bookmark ? false : true,
-        ]);
+    //     $post->update([
+    //         'bookmark' => $post->bookmark ? false : true,
+    //     ]);
 
-        return back();
-    }
+    //     return back();
+    // }
 }

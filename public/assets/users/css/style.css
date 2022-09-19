@@ -211,7 +211,12 @@ button.btn-profile {
    font-size: 14px;
 }
 
+/* title */
 
+.post h3.title {
+   font-family: 'Tiro Bangla', serif;
+   font-size: 28px;
+}
 
 /* about */
 .btn-link a.btn {

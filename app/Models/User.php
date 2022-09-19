@@ -73,10 +73,7 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function bookmark()
-    {
-        return $this->hasMany(Post::class);
-    }
+
 
     public function photo()
     {
@@ -95,5 +92,10 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');
+    }
+
+    public function bookmarks()
+    {
+        return $this->belongsToMany(Post::class, 'bookmarks', 'user_id', 'post_id');
     }
 }
