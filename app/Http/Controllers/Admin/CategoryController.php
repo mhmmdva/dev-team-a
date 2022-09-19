@@ -37,10 +37,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $category)
+    public function create()
     {
-        //$category = Category::all();
-        //dd($category);
+        $category = Category::all();
 
         $tags = Tag::all();
         return view('category.create', [
@@ -65,7 +64,7 @@ class CategoryController extends Controller
 
         Category::create($data);
 
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success', 'Successfuly Created New Category!');
     }
 
     /**
@@ -109,9 +108,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $categoryRequest, Category $category)
     {
-        //
+        $data = $categoryRequest->validated();
+
+        $category->update($data);
+
+        return redirect()->route('category.index')->with('success', 'Successfuly Updated!');
     }
 
     /**
@@ -122,9 +125,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category, Post $post)
     {
-        Storage::delete($post->image);
-        $post->delete();
+        $category->delete();
 
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success', 'Successfuly Deleted!');;
     }
 }

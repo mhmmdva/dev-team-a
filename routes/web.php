@@ -28,6 +28,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::resource('posts', PostController::class)->except('index');
 
     // Route::prefix('dashboard')->controller(DashboardController::class)->name('dashboard.')->group(function () {
     //     Route::get('/', 'index')->name('index');
@@ -36,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     // });
 
     Route::prefix('users')->controller(UserController::class)->name('profile.')->group(function () {
-        Route::get('/about', 'index')->name('index');
+        Route::get('/{user:name}/about', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
         Route::get('/show', 'showList')->name('show-list');
@@ -50,13 +51,13 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::prefix('posts')->controller(PostController::class)->name('posts.')->group(function () {
-        Route::get('/', 'index')->name('index');
+        Route::get('show', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
         //Route::get('/show', 'show')->name('show');
         Route::get('/{post:slug}/edit', 'edit')->name('edit');
         Route::patch('/{post:slug}/update', 'update')->name('update');
-        //Route::delete('/{posts}', 'destroy')->name('destroy');
+        Route::delete('/{posts}', 'destroy')->name('destroy');
     });
 
     Route::prefix('tags')->controller(TagController::class)->name('tags.')->group(function () {
@@ -64,10 +65,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
         Route::get('/{tag}', 'show')->name('show');
-
-        //Route::get('/{tags}/edit', 'edit')->name('edit');
-        //Route::patch('/{tags}', 'update')->name('update');
-        //Route::delete('/{tags}', 'destroy')->name('destroy');
+        Route::get('/{tag}/edit', 'edit')->name('edit');
+        Route::put('/{tag}', 'update')->name('update');
+        Route::delete('/{tag}', 'destroy')->name('destroy');
     });
 
     Route::resource('/category', CategoryController::class);

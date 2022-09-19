@@ -34,6 +34,8 @@ class Post extends Model
         } else {
             return null;
         }
+
+        //return Storage::url($this->image);
     }
 
     public function getRouteKeyName()

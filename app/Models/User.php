@@ -82,6 +82,11 @@ class User extends Authenticatable
         }
     }
 
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
     public function likes()
     {
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');

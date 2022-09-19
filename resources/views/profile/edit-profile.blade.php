@@ -50,8 +50,9 @@
                                     {{-- photo --}}
                                     <div class="col-2" style="position: relative;">
 
-                                        <input id="changeProfilePhoto" type="file" class="d-none @error('photo') is-invalid @enderror"
-                                        name="photo" value="{{ old('photo') }}" autofocus accept="image/*">
+                                        <input id="changeProfilePhoto" type="file"
+                                            class="d-none @error('photo') is-invalid @enderror" name="photo"
+                                            value="{{ old('photo') }}" autofocus accept="image/*">
 
                                         <a href="#" onclick="document.getElementById('changeProfilePhoto').click();">
                                             <i class="fa fa-camera rounded-circle p-3"
@@ -60,7 +61,8 @@
                                             </i>
                                         </a>
 
-                                        <img src="{{ $user->photo() }}" alt='profile-photo' class="rounded-circle w-100 cropped">
+                                        <img src="{{ $user->photo() }}" alt='profile-photo'
+                                            class="rounded-circle w-100 cropped">
                                         @error('photo')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -108,7 +110,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
 
     {{-- ijabo crop tool --}}
-    <link rel="stylesheet" href="{{ asset('ijaboCropTool/ijaboCropTool.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('ijaboCropTool/ijaboCropTool.min.css') }}" />
 @endpush
 
 @push('script')
@@ -121,16 +123,16 @@
 
     <script>
         $('#changeProfilePhoto').ijaboCropTool({
-            preview : '.cropped',
-            setRatio:1,
-            allowedExtensions: ['jpg', 'jpeg','png'],
-            buttonsText:['CROP','QUIT'],
-            buttonsColor:['#FFC017','#EDF1F7', -15],
-            processUrl:'{{ route("profile.change-profile-photo", $user->username) }}',
-            withCSRF:['_token','{{ csrf_token() }}'],
-            onError:function(message, element, status){
+            preview: '.cropped',
+            setRatio: 1,
+            allowedExtensions: ['jpg', 'jpeg', 'png'],
+            buttonsText: ['CROP', 'QUIT'],
+            buttonsColor: ['#FFC017', '#EDF1F7', -15],
+            processUrl: '{{ route('profile.change-profile-photo', $user->username) }}',
+            withCSRF: ['_token', '{{ csrf_token() }}'],
+            onError: function(message, element, status) {
                 alert(message);
-          }
+            }
         });
-   </script>
+    </script>
 @endpush

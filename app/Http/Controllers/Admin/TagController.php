@@ -17,10 +17,15 @@ class TagController extends Controller
 
         $active = 'Tags';
         $categories = Category::all();
-        $tags = Tag::paginate(10);
+        $tags = Tag::paginate(5);
         $title = 'Tags';
 
-        return view('tags.index', compact('active', 'categories', 'tags', 'title'));
+        return view('tags.index', [
+            'active' => $active,
+            'categories' => $categories,
+            'tags' => $tags,
+            'title' => $title,
+        ]);
     }
 
     public function create()
@@ -29,18 +34,18 @@ class TagController extends Controller
         $tags = Tag::all();
         $title = 'Tags';
 
-        return view('tags.create', compact('active', 'tags', 'title'));
+        return view('tags.create', [
+            'active' => $active,
+            'title' => $title,
+            'tags' => $tags,
+        ]);
     }
 
     public function store(TagRequest $tagRequest)
     {
-        $data = $tagRequest->validated();
+        Tag::create($tagRequest->validated());
 
-        //$data['slug'] = str()->slug($data['name']);
-
-        Tag::create($data);
-
-        return redirect()->route('tags.index');
+        return redirect()->route('tags.index')->with('success', 'Successfuly Created New Tag!');
     }
 
     public function show(Tag $tag)
@@ -60,29 +65,35 @@ class TagController extends Controller
     }
 
 
-    public function edit(Tag $tags)
+    public function edit(Tag $tag)
     {
-
+        $active = 'Tags';
+        $title = 'Edit Tag';
         return view('tags.edit', [
-            'title' => 'Edit Tag',
-            'tags' => $tags,
+            'title' => $title,
+            'active' => $active,
+            'tag' => $tag,
         ]);
     }
 
 
-    public function update(TagRequest $tagRequest, Tag $tags)
+    public function update(TagRequest $tagRequest, Tag $tag)
     {
-        $data = $tagRequest->validated();
+        $tag->update($tagRequest->validated());
 
-        $tags->update($data);
-
-        return redirect()->route('tags.index');
+        return redirect()->route('tags.index')->with('success', 'Successfuly Updated!');
     }
 
-    public function destroy(Tag $tags)
+    public function destroy(Tag $tag)
     {
-        $tags->delete();
+        foreach ($tag->posts as $post) {
+            $post->tags()->detach();
+        }
 
-        return redirect()->route('tags.index');
+        if (!$tag->posts()->count()) {
+            $tag->delete();
+        }
+
+        return redirect()->route('tags.index')->with('success', 'Successfuly Deleted!');
     }
 }

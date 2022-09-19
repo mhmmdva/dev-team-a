@@ -1,9 +1,9 @@
-<div class="footer p-1">
+<div class="footer mt-5">
 
-    <div class="container ">
-        <footer class="py-3 my-4">
-            <div class="col mb-3 d-flex align-items-center justify-content-center section-footers">
-                <a href="/" class=" mb-3 text1 text-decoration-none footer-logo">
+    <div class="container">
+        <footer class="p-1">
+            <div class="col d-flex align-items-center justify-content-center section-footers">
+                <a href="/" class="text1 text-decoration-none footer-logo">
                     Dev <br> Team A
                 </a>
             </div>

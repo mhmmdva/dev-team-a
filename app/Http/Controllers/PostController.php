@@ -12,18 +12,24 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Category $category, Tag $tag, User $user)
     {
-        // $categories = Category::all();
-        $tags = Tag::all();
-        // $users = User::all();
-        $posts = Post::get();
+        $categories = Category::all();
+        $users = User::all();
+        $post = Post::get();
+        $posts = $tag->posts()->with('user', 'category', 'tags')->paginate(10);
+        $tag = Tag::all();
 
-        return view('dashboard.index', [
-            'title' => 'Dashboard',
+        //dd($user);
+
+        return view('home', [
             'active' => 'Dashboard',
+            'category' => $category,
             'posts' => $posts,
-            'tags' => $tags,
+            'user' => $user,
+            'post' => $post,
+            'title' => 'Dashboard',
+            'tag' => $tag,
         ]);
     }
 
@@ -37,10 +43,7 @@ class PostController extends Controller
             'active' => 'Post',
             'categories' => $categories,
             'tags' => $tags,
-        ]);
-
-        return view('posts.create', compact('categories', 'tags'))
-            ->with('success-create-post', 'Post successfully created!');
+        ])->with('success-create-post', 'Post successfully created!');
     }
 
     public function store(PostRequest $request, PostServices $postServices)
@@ -58,9 +61,11 @@ class PostController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('posts.edit', compact('post', 'categories', 'tags'), [
-            'title' => 'Post Create',
+        return view('posts.edit', [
             'active' => 'Post',
+            'title' => 'Edit Post',
+            'categories' => $categories,
+            'tags' => $tags,
         ]);
     }
 
@@ -71,8 +76,17 @@ class PostController extends Controller
 
         $postServices->handleUpdate($request, $post);
 
-        return redirect()->route('home.index')
+        return redirect()->route('post.show')
             ->with('success-edit-post', 'Post successfully updated!');
+    }
+
+    public function show(Post $post)
+    {
+        return view('posts.show', [
+            'post' => $post,
+            'title' => 'Post.show',
+            'active' => 'Post',
+        ]);
     }
 
     public function bookmark(Post $post)
