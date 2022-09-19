@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{post:slug}/edit', 'edit')->name('edit');
         Route::patch('/{post:slug}/update', 'update')->name('update');
         Route::delete('/{posts}', 'destroy')->name('destroy');
+        Route::post('{post}/bookmark', 'bookmark')->name('bookmark');
     });
 
     Route::prefix('tags')->controller(TagController::class)->name('tags.')->group(function () {

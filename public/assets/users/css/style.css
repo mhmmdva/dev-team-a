@@ -297,6 +297,12 @@ button.btn-profile {
    font-size: 20px;
 }
 
+.cards-category-name button.bookmark {
+   font-family: 'Tiro Bangla', serif;
+   color: #ffffff;
+   font-size: 16px;
+}
+
 
 .cards-category-name button.tags {
    font-size: 12px;

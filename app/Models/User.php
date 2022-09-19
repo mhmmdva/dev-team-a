@@ -73,6 +73,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function bookmark()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function photo()
     {
         if ($this->photo != null) {

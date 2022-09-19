@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Maize\Markable\Markable;
+use Maize\Markable\Models\Like;
 
 class Post extends Model
 {
@@ -41,5 +43,14 @@ class Post extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    // protected static $marks = [
+    //     Like::class,
+    // ];
+
+    public function bookmark()
+    {
+        return $this->belongsToMany(Bookmark::class);
     }
 }
