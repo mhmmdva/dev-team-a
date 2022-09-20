@@ -75,12 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/category', CategoryController::class);
 
     Route::get('/like/{id}', [LikeController::class, 'like'])->name('like');
-<<<<<<< HEAD
-=======
     Route::get('/bookmark/{id}', [BookmarkController::class, 'bookmark'])->name('bookmark');
-    // Like
-    // Route::post('like', [LikeController::class, 'saveLike'])->name('like');
->>>>>>> ca59bbd034bd4254011cf9bcb7d37975bb425a6e
 });
 
 require __DIR__ . '/auth.php';
