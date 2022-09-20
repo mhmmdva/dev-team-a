@@ -129,7 +129,7 @@
                                     style="width: 12rem; height:3rem; background-color: white; border-color:#4F6EAC; color:#4F6EAC">
                             </form>
                             <button type="submit" class="btn btn-primary"
-                                style="width: 12rem; height:3rem; background-color: #4F6EAC; border-color:#4F6EAC">Update</button>
+                                style="width: 12rem; height:3rem; background-color: #4F6EAC; border-color:#4F6EAC">{{ __('Update') }}</button>
                         </div>
                     </div>
                 </form>

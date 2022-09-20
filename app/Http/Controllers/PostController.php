@@ -66,6 +66,7 @@ class PostController extends Controller
             'title' => 'Edit Post',
             'categories' => $categories,
             'tags' => $tags,
+            'post' => $post,
         ]);
     }
 
@@ -75,8 +76,7 @@ class PostController extends Controller
         $this->authorize('owner', $post);
 
         $postServices->handleUpdate($request, $post);
-
-        return redirect()->route('post.show')
+        return redirect()->route('posts.show', $post->slug)
             ->with('success-edit-post', 'Post successfully updated!');
     }
 
@@ -89,17 +89,26 @@ class PostController extends Controller
         ]);
     }
 
-    public function bookmark(Post $post)
+    public function destroy(Post $post, PostServices $postServices)
     {
-        // boolean (left = false)
-        // boolean (right = true)
-        // $post->bookmark = !$post->bookmark;
-        // $post->save();
+        $this->authorize('owner', $post);
 
-        $post->update([
-            'bookmark' => $post->bookmark ? false : true,
-        ]);
+        $postServices->handleDestroy($post);
 
-        return back();
+        return redirect()->route('home.index', auth()->user()->username);
     }
+
+    // public function bookmark(Post $post)
+    // {
+    //     boolean (left = false)
+    //     boolean (right = true)
+    //     $post->bookmark = !$post->bookmark;
+    //     $post->save();
+
+    //     $post->update([
+    //         'bookmark' => $post->bookmark ? false : true,
+    //     ]);
+
+    //     return back();
+    // }
 }
