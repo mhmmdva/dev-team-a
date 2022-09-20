@@ -19,6 +19,8 @@
                             </a>
                         </h6>
                     </div>
+
+                    
                     <div class="p-2 post">
                         <h3 class="title"> {{ $post->title }} </h3>
                         @foreach ($post->tags as $tag)

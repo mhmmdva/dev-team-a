@@ -99,7 +99,7 @@
                 </div>
             @empty
                 <p style="margin-left: 75px; margin-top: 20px;">No posts yet.</p>
-                {{ $posts->links() }}
+                {{-- {{ $posts->links() }} --}}
         </div>
     </div>
     </div>

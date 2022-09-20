@@ -17,7 +17,7 @@ class PostController extends Controller
         $categories = Category::all();
         $users = User::all();
         $post = Post::get();
-        $posts = $tag->posts()->with('user', 'category', 'tags')->paginate(10);
+        $posts = $tag->posts()->with('user', 'category', 'tags');
         $tag = Tag::all();
 
         //dd($user);
