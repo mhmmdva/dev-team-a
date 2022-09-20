@@ -24,7 +24,7 @@
                     <div class="p-2 post">
                         <h3 class="title"> {{ $post->title }} </h3>
                         @foreach ($post->tags as $tag)
-                            <a href="{{ route('tags.index', $tag->slug) }}" class="text-decoration-none">
+                            <a href="{{ route('tags.show', $tag->name) }}" class="text-decoration-none">
                                 <span class="badge rounded-pill text-bg-secondary mb-2">#{{ $tag->name }}</span>
                             </a>
                         @endforeach
@@ -79,7 +79,7 @@
                                 </a>
                                 <span type="button">
                                     @if ($post->bookmarks()->count() > 0)
-                                        <span id="showUserList" data-toggle="modal" data-target="#userModal"
+                                        <span id="showUserList" data-toggle="modal" data-target="#userBookmarkModal{{ $post->id }}"
                                             class="font-weight-bold">
                                             @if ($post->bookmarks()->count() == 1)
                                                 {{ $post->bookmarks()->count() }} Save
@@ -115,7 +115,7 @@
     </div>
     </div>
     </div>
-    <!-- Modal -->
+    <!-- Modal Like -->
     <div class="modal fade" id="userModal{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="userModal"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -132,6 +132,30 @@
                         <div>
                             <img src="{{ $users->photo() }}" width="40" height="40" class="rounded-circle mb-2">
                             {{ $users->name }}
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Bookmarks -->
+    <div class="modal fade align-middle" id="userBookmarkModal{{ $post->id }}" tabindex="-1" role="dialog"
+        aria-labelledby="userModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="userBookmarkModal">{{ $post->likes->count() }} people that bookmark
+                        "{{ $post->title }}"</h5>
+                    <div type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    @foreach ($post->bookmarks as $users)
+                        <div>
+                            <img src="{{ $users->photo() }}" width="40" height="40"
+                                class="rounded-circle mb-2"> {{ $users->name }}
                         </div>
                     @endforeach
                 </div>
