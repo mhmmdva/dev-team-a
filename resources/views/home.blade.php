@@ -1,22 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-    <div style="background:#4F6EAC" class="jumbotron jumbotron-fluid pb-3">
-        <div class="container">
-                <i style="font-family: Open Sans" class="display-6 text-white">SELAMAT DATANG DI WEBSITE TEAM A</i>
-                <p class="text-white" style="font-family: Open Sans; text-align: justify">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, similique? Porro quisquam aut harum autem fuga nam? Optio placeat nulla vitae ipsa esse facilis neque cum sint, expedita dicta delectus totam corrupti amet suscipit eum reprehenderit nam consequatur ipsum incidunt iure dolorum quia. Voluptas, enim placeat non modi quaerat veritatis?</p>
-        </div>
-    </div>
     <h3 style="margin-left: 75px; margin-top: 20px;">Trending</h3>
+    <div class="container">
+        <div class="row justify-content-start">
     @forelse ($posts as $post)
-            <div class="card" style="width: 18rem; margin-left: 75px; margin-bottom: 10px;">
+            <div class="card my-2 mx-2" style="box-shadow: 1px 1px 4px rgba(0,0,0,.5); width: 18rem; margin-left: 75px; margin-bottom: 10px;">
                 <div class="card-body">
                     @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
                         @endif
-                    <a href="{{ route('posts.show', $post->slug) }}">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <img src="{{ $post->user->photo() }}" width="25" height="25" class="rounded-circle">
+                            </div>
+                            <div class="col-md-4 ms-2 pb-3">
+                                <a href="{{ route('profile.index', $post->user->name) }}"
+                                    class="title text-decoration-none text-dark">
+                                    {{ $post->user->name }}
+                                </a>
+                            </div>
+                        </div>
+
+                    <a href="{{ route('posts.show', $post->slug) }} " class="text-decoration-none text-dark">
                         <h5 class="card-title">{{ $post->title }}</h5>
                     </a>
                     @foreach ($post->tags as $tag )
@@ -70,10 +78,12 @@
                 </div>
             </div>
             @empty
-            <p>No posts yet.</p>
+            <p style="margin-left: 75px; margin-top: 20px;">No posts yet.</p>
                     {{ $posts->links() }}
             </div>
         </div>
+    </div>
+</div>
     @endforelse
 @endsection
 
