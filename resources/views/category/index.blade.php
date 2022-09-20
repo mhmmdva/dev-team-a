@@ -40,7 +40,6 @@
                                 Delete <i class="bi bi-trash"></i>
                             </button>
 
-
                             <div class="modal fade" id="Modal" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-dialog-centered">
                                     <div class="modal-content bg-danger alert-category">

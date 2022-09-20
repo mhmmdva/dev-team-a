@@ -29,7 +29,7 @@
                             <h5 class="fs-6 card-title">{{ $post->title }}</h5>
                         </a>
                         @foreach ($post->tags as $tag)
-                            <a href="{{ route('tags.index', $tag->slug) }}" class="text-decoration-none">
+                            <a href="{{ route('tags.show', $tag->name) }}" class="text-decoration-none">
                                 <span class="badge rounded-pill text-bg-secondary mb-2">#{{ $tag->name }}</span>
                             </a>
                         @endforeach

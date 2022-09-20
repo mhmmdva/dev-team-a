@@ -22,7 +22,7 @@
                     <div class="p-2 post">
                         <h3 class="title"> {{ $post->title }} </h3>
                         @foreach ($post->tags as $tag)
-                            <a href="{{ route('tags.index', $tag->slug) }}" class="text-decoration-none">
+                            <a href="{{ route('tags.show', $tag->name) }}" class="text-decoration-none">
                                 <span class="badge rounded-pill text-bg-secondary mb-2">#{{ $tag->name }}</span>
                             </a>
                         @endforeach
