@@ -78,11 +78,13 @@ class CategoryController extends Controller
         $posts = $category->posts()->with('user', 'category', 'tags')->paginate(10);
         $categories = Category::all();
         $tags = Tag::all();
-        return view('categories.show',  [
+        return view('category.show',  [
+            'active' => 'Category',
             'categories' => $categories,
             'posts' => $posts,
             'category' => $category,
             'tags' => $tags,
+            'title' => 'Category',
         ]);
     }
 

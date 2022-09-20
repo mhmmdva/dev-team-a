@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Category $category)
     {
         $posts = Post::with('user')->get();
 
@@ -30,6 +31,7 @@ class HomeController extends Controller
             'title' => 'Home',
             'active' => 'Home',
             'posts' => $posts,
+            'category' => $category,
         ]);
     }
 }
