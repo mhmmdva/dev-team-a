@@ -9,17 +9,23 @@ class LikeController extends Controller
 {
     public function like($post_id)
     {
-        $like = Like::where('post_id', $post_id)->where('user_id', auth()->user()->id)->first();
+        $user = auth()->user();
+        $likePost = $user->likedPosts->where('post_id', $post_id)->count();
 
-        if ($like) {
-            $like->delete();
-            return back();
+        if ($likePost == 0) {
+            $user->likedPosts->attach($post_id);
+            // return back();
         } else {
-            Like::create([
-                'post_id' => $post_id,
-                'user_id' => auth()->user()->id
-            ]);
-            return back();
+            $user->likedPosts->detach($post_id);
+            // return back();
         }
+
+        // $like = Like::create([
+        //     'name' => auth()->user()->name.
+        //     'comment' => $request->comment
+        // ]);
+
+        // return $like;
+        return redirect()->back();
     }
 }
