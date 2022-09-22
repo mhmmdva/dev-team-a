@@ -8,13 +8,16 @@
                 <div class="card my-2 mx-2"
                     style="box-shadow: 1px 1px 4px rgba(0,0,0,.5); width: 18rem; margin-left: 75px; margin-bottom: 10px;">
                     <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
+                    @if (session()->has('success'))
+                        <div class="container">
+                            <div class="alerts alert alert-success alert-dismissible fade show" role="alert">
+                                <strong> {{ session('success') }}</strong> You should check it out
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
-                        @endif
+                        </div>
+                    @endif
                         <div class="row">
-                            <div class="col-md-1">
+                            <div class="col-md-1 pb-2">
                                 <img src="{{ $post->user->photo() }}" width="25" height="25" class="rounded-circle">
                             </div>
                             <div class="col-md-8 ms-2 fw-bold">
@@ -23,6 +26,12 @@
                                     {{ $post->user->name }}
                                 </a>
                             </div>
+                            <h6 class="text-muted">
+                                <a href="{{ route('category.index', $post->user->name) }}"
+                                    class="title text-decoration-none text-dark">
+                                    Category by: {{ $post->category->name }}
+                                </a>
+                            </h6>
                         </div>
 
                         <a href="{{ route('posts.show', $post->slug) }} " class="text-decoration-none text-dark">
@@ -125,8 +134,6 @@
                 <p style="margin-left: 75px; margin-top: 20px;">No posts yet.</p>
                 {{-- {{ $posts->links() }} --}}
         </div>
-    </div>
-    </div>
     </div>
     @endforelse
 @endsection
