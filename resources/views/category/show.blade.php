@@ -22,8 +22,7 @@
                                     class="title text-decoration-none text-dark">
                                     {{ $post->user->name }}
                                 </a>
-                                <a href="{{ route('category.show', $post->category->name) }}"
-                                    class="title text-decoration-none text-dark">
+                                <a href="{{ route('category.index') }}" class="title text-decoration-none text-dark">
                                     {{ $post->category->name }}
                                 </a>
                             </div>
@@ -132,7 +131,6 @@
                 {{-- {{ $posts->links() }} --}}
             @endforelse
         </div>
-
     </div>
 
 @endsection

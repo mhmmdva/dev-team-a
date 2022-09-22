@@ -20,7 +20,7 @@
                         </h6>
                     </div>
 
-                    
+
                     <div class="p-2 post">
                         <h3 class="title"> {{ $post->title }} </h3>
                         @foreach ($post->tags as $tag)
@@ -79,8 +79,8 @@
                                 </a>
                                 <span type="button">
                                     @if ($post->bookmarks()->count() > 0)
-                                        <span id="showUserList" data-toggle="modal" data-target="#userBookmarkModal{{ $post->id }}"
-                                            class="font-weight-bold">
+                                        <span id="showUserList" data-toggle="modal"
+                                            data-target="#userBookmarkModal{{ $post->id }}" class="font-weight-bold">
                                             @if ($post->bookmarks()->count() == 1)
                                                 {{ $post->bookmarks()->count() }} Save
                                             @else
@@ -111,9 +111,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
     </div>
     <!-- Modal Like -->
     <div class="modal fade" id="userModal{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="userModal"
@@ -154,8 +151,8 @@
                 <div class="modal-body">
                     @foreach ($post->bookmarks as $users)
                         <div>
-                            <img src="{{ $users->photo() }}" width="40" height="40"
-                                class="rounded-circle mb-2"> {{ $users->name }}
+                            <img src="{{ $users->photo() }}" width="40" height="40" class="rounded-circle mb-2">
+                            {{ $users->name }}
                         </div>
                     @endforeach
                 </div>
