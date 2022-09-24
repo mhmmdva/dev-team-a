@@ -75,7 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/category', CategoryController::class);
 
 
-    Route::get('/like/{id}', [LikeController::class, 'like'])->name('like');
+    Route::post('/like/{post_id}', [LikeController::class, 'like'])->name('like');
     Route::get('/bookmark/{id}', [BookmarkController::class, 'bookmark'])->name('bookmark');
 });
 
