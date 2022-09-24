@@ -62,18 +62,18 @@
                                             href="{{ route('profile.show-profile', auth()->user()->username) }}">
                                             <i class="bx bx-user"></i><span>Profile</span></a>
                                     </li>
-                                    {{-- <li><a class="dropdown-item {{ $active === 'Post' ? 'active' : '' }} "
+                                    <li><a class="dropdown-item {{ $active === 'Post' ? 'active' : '' }} "
                                             href="{{ route('posts.create') }}">
                                             <i class='bx bx-home-circle'></i><span>Create Post</span></a>
+                                    </li>
+                                    <li><a class="dropdown-item {{ $active === 'Category' ? 'active' : '' }} "
+                                            href="{{ route('category.create') }}"><i
+                                                class='bx bx-dollar-circle'></i><span>Create Category</span></a>
                                     </li>
                                     <li><a class="dropdown-item {{ $active === 'Tags' ? 'active' : '' }} "
                                             href="{{ route('tags.create') }}"><i
                                                 class='bx bx-dollar-circle'></i><span>Create Tag</span></a>
                                     </li>
-                                    <li><a class="dropdown-item {{ $active === 'Category' ? 'active' : '' }} "
-                                            href="{{ route('category.create') }}"><i
-                                                class='bx bx-dollar-circle'></i><span>Create Category</span></a>
-                                    </li> --}}
                                     <li>
                                         <div class="dropdown-divider mb-0"></div>
                                     </li>

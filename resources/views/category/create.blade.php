@@ -7,7 +7,13 @@
                 <h1 class="mt-3 card-title">Create Category</h1>
                 <form action="{{ route('category.store') }}" method="POST" class="d-inline-block col-lg-12 mt-1 mb-5">
                     @csrf
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Input category name">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                        name="name" placeholder="Input category name">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <button type="submit" class="mt-4 btn btn-dark">Create</button>
                 </form>
             </div>
