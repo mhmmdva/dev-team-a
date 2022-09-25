@@ -36,7 +36,7 @@ class GoogleController extends Controller
             } else {
                 $newUser = User::create([
                     'name' => ucwords($user->name),
-                    'username' => str_replace(' ', '_', $user->name),
+                    'username' => str_replace('@gmail.com', '', $user->email),
                     'email' => $user->email,
                     'provider_id' => $user->id,
                 ]);
