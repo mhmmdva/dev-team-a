@@ -36,7 +36,7 @@ class FacebookController extends Controller
             } else {
                 $newUser = User::create([
                     'name' => ucwords($user->name),
-                    'username' => str()->lower(str_replace(' ', '_', $user->name)),
+                    'username' => str()->lower(str_replace(' ', '_', $user->name) . $user->id),
                     'email' => $user->email,
                     'provider_id' => $user->id,
                 ]);
