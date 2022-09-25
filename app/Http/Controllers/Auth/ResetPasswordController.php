@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Http\Requests\ResetPasswordRequest;
+use App\Services\ResetPasswordServices;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
@@ -27,4 +29,19 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function showResetPassword($token)
+    {
+        return view('auth.passwords.reset', [
+            'token'     => $token,
+            'title'     => 'Reset Password',
+            'active'    => 'Reset Password',
+        ]);
+    }
+
+    public function submitResetPassword(ResetPasswordRequest $request, ResetPasswordServices $resetPasswordServices)
+    {
+        $resetPasswordServices->handleResetPassword($request);
+        return redirect()->route('login')->with('message', 'Success changed password!');
+    }
 }
