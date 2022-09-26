@@ -40,13 +40,14 @@
                         <div class="mt-3 d-flex justify-content-between">
                             <span class="position-relative me-lg-2 p-1 m-0 fs-6">
                                 <a type="button" class=" text-decoration-none text-dark likesIcon"
-                                     post_id={{ $post->id }} user_id={{ auth()->user()->id }}>
-                                    <i class="text-danger bi {{auth()->user()->likedPosts()->where('post_id', $post->id)->count() > 0 ? 'bi-heart-fill' : 'bi-heart'}}"></i>
+                                    post_id={{ $post->id }} user_id={{ auth()->user()->id }}>
+                                    <i class="text-danger bi {{ auth()->user()->likedPosts()->where('post_id', $post->id)->count() > 0? 'bi-heart-fill': 'bi-heart' }}"></i>
                                 </a>
 
                                 <span type="button" class="likesCount">
                                     @if ($post->likedUsers()->count() > 0)
-                                        <span data-toggle="modal" data-target="#userModal{{ $post->id }}" class="font-weight-bold">
+                                        <span data-toggle="modal" data-target="#userModal{{ $post->id }}"
+                                            class="font-weight-bold">
                                             {{ $post->likedUsers()->count() }} Likes
                                         </span>
                                     @endif
@@ -78,7 +79,7 @@
                 <div class="modal fade align-middle" id="userModal{{ $post->id }}" tabindex="-1" role="dialog"
                     aria-labelledby="userModal" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content modalLikes{{$post->id}}">
+                        <div class="modal-content modalLikes{{ $post->id }}">
                             <div class="modal-header border-0">
                                 <h5 class="modal-title" id="userModal">{{ $post->likedUsers->count() }} likes for
                                     "{{ $post->title }}"</h5>
@@ -105,7 +106,8 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header border-0">
-                                <h5 class="modal-title" id="userBookmarkModal">{{ $post->bookmarks->count() }} people that bookmark
+                                <h5 class="modal-title" id="userBookmarkModal">{{ $post->bookmarks->count() }} people that
+                                    bookmark
                                     "{{ $post->title }}"</h5>
                                 <div type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -143,7 +145,7 @@
     </script>
 
     <script>
-        $('.likesIcon').on("click", function (evt) {
+        $('.likesIcon').on("click", function(evt) {
             evt.preventDefault();
             var _this = $(this);
             var user_id = _this.attr("user_id");
@@ -155,18 +157,21 @@
             };
 
             $.ajax({
-                url: "/like/"+post_id,
+                url: "/like/" + post_id,
                 type: 'POST',
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 dataType: 'JSON',
                 data: JSON.stringify(data),
-                success: function(response){
+                success: function(response) {
                     console.log('it works!');
 
                     location.reload(true);
                 },
-                error: function(xhr){
-                    alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+                error: function(xhr) {
+                    alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' +
+                        xhr.responseText);
                 }
             });
         });

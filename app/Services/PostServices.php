@@ -24,7 +24,7 @@ class PostServices
         $fileExtension = $file->getClientOriginalExtension();
         $name = $fileName . '-' . now()->format('dmyhis') . '.' . $fileExtension;
 
-        $fileUrl = $file->storeAs('public/images/post', $name);
+        $fileUrl = $file->storeAs('images/post', $name);
         $data['image'] = $fileUrl;
 
         // if ($request->hasFile('image')) {
@@ -41,6 +41,7 @@ class PostServices
             } else {
                 $param = ['id' => $currentTag];
             }
+            $param['slug'] = $currentTag;
             $tag = Tag::firstOrCreate($param);
             $post->tags()->attach($tag->id);
         }
@@ -59,7 +60,7 @@ class PostServices
         $fileExtension = $file->getClientOriginalExtension();
         $name = $fileName . '-' . now()->format('dmyhis') . '.' . $fileExtension;
 
-        $fileUrl = $file->storeAs('public/images/post', $name);
+        $fileUrl = $file->storeAs('images/post', $name);
         $data['image'] = $fileUrl;
 
         // if ($request->hasFile('image')) {

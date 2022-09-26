@@ -17,12 +17,41 @@ class UserSeeder extends Seeder
     {
         User::create(
             [
-                'id' => 1,
+                'id' => 6,
                 'name' => 'Muhammad Vallen Firdaus',
                 'username' => 'mhmmdvlln',
                 'email' => 'admin1@gmail.com',
                 'password' => bcrypt('password'),
-            ],
+            ]
+        );
+
+        User::create(
+            [
+                'id' => 7,
+                'name' => 'Faizah',
+                'username' => 'faizahfai',
+                'email' => 'admin2@gmail.com',
+                'password' => bcrypt('password'),
+            ]
+        );
+        User::create(
+            [
+                'id' => 8,
+                'name' => 'Ardianita',
+                'username' => 'ardianitanita',
+                'email' => 'admin3@gmail.com',
+                'password' => bcrypt('password'),
+            ]
+        );
+
+        User::create(
+            [
+                'id' => 9,
+                'name' => 'Azriel Fahrulrezy',
+                'username' => 'azrielrezy',
+                'email' => 'admin4@gmail.com',
+                'password' => bcrypt('password'),
+            ]
         );
     }
 }
