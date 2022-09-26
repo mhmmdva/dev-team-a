@@ -1,47 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex justify-content-center align-items-center tag-category">
+    <div class="d-flex justify-content-center align-items-center mt-4">
         <h1 class="card-title">
 
-            <a href="{{ route('tags.create') }}" class="title text-decoration-none"> Tags</a>
-            <a href="" class="tags btn btn-light">#{{ $tag->name }}</a>
+            <h1 style="font-weight: 900">
+                <span>{{auth()->user()->name}}'s</span>
+                <span>Reading List</span>
+            </h1>
 
-            <a href="{{ route('tags.edit', $tag->name) }}" class="btn btn-warning">
-                Edit <i class="bi bi-pencil-fill"></i>
-            </a>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal">
-                Delete <i class="bi bi-trash"></i>
-            </button>
-
-            <div class="modal fade" id="Modal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content bg-danger alert-tags">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-white">Are you sure?</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body text-white">
-                            <p>This is irreversible action, think carefully!.</p>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <form action="{{ route('tags.destroy', $tag->name) }}" method="POST" class="d-inline-block">
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="btn btn-dark">Delete</button>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
         </h1>
     </div>
 
-    @forelse ($posts as $post)
+    @forelse ($user->bookmarks as $post)
         <div class="d-flex justify-content-center align-items-center pt-3 pb-2 mb-3 ">
 
             <div class="card mt-3 col-lg-8 shadow  bg-body rounded ">
@@ -103,14 +74,6 @@
                                         @endif
                                     </span>
                                 </span>
-                                {{-- <a href="{{ route('bookmark', $post->id) }}" class=" text-decoration-none text-dark">
-                                    <i onclick="changeIconLikes(this)" class="bi bi-heart text-danger" id="likesIcon"></i>
-                                </a>
-
-                                <button type="button" class="bookmark btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">
-                                    Bookmark <i class="bi bi-bookmark-star"></i> 1
-                                </button> --}}
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
@@ -199,7 +162,7 @@
             </div>
         </div>
     @empty
-        <p>No Post Yet.</p>
+        <h4 class="p-5">No Reading List Yet.</h4>
     @endforelse
 @endsection
 

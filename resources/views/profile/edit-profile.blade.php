@@ -1,19 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    {{-- success notification --}}
+    @if (session()->has('success-update-profile'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success-update-profile') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <div class="container mt-4">
         <div class="row justify-content-center">
-
             <div class="col-md-8">
-
-                {{-- success notification --}}
-                @if (session()->has('success-update-profile'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success-update-profile') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-
                 <h1 class="mb-3" style="font-weight: 700;">
                     <div>
                         <span>Edit Profile for </span>
@@ -83,6 +81,37 @@
                                             </span>
                                         @enderror
                                     </div>
+                                </div>
+                            </div>
+
+
+                            <div class="d-flex flex-column mb-3 mx-5">
+                                {{-- username --}}
+                                <div class="p-2">
+                                    <label for="username">Username</label>
+                                    <input id="username" type="text"
+                                        class="form-control @error('username') is-invalid @enderror" name="username"
+                                        value="{{ auth()->user()->username }}" autofocus disabled>
+
+                                    @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                {{-- email --}}
+                                <div class="p-2">
+                                    <label for="email">Email</label>
+                                    <input id="email" type="text"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ auth()->user()->email }}" autofocus disabled>
+
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 

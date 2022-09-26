@@ -43,7 +43,7 @@ class PostController extends Controller
             'active' => 'Post',
             'categories' => $categories,
             'tags' => $tags,
-        ])->with('success-create-post', 'Post successfully created!');
+        ]);
     }
 
     public function store(PostRequest $request, PostServices $postServices)

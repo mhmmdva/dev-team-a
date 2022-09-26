@@ -6,20 +6,13 @@
         <div class="card border-0 bg-transparent">
             <div class="card-body">
                 <h5 class="text-center">Sign up</h5>
-
                 <div class="row justify-content-center my-4">
                     <div class="col-lg-6">
-                        <center><a class="btn btn-danger btn-sm" href="{{ route('login.google') }}"><i class="bi bi-google"></i><span> Sign up with Google</span></a></center>
+                        <center><a class="btn" href="{{ route('login.google') }}"><i class="bi bi-google"></i></a>
+                            <a class="btn" href="{{ route('login.facebook') }}"><i class="bi bi-facebook"></i></a>
+                            <a class="btn" href="{{ route('login.github') }}"><i class="bi bi-github"></i></a>
+                        </center>
                     </div>
-                    <!-- <div class="col-md-2">
-                            <a class="btn" href="#"><i class="bi bi-twitter"></i></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a class="btn" href="#"><i class="bi bi-facebook"></i></a>
-                        </div>
-                        <div class="col-md-2">
-                            <a class="btn" href="#"><i class="bi bi-github"></i></a>
-                        </div> -->
                 </div>
 
                 <p class="text-center text-muted mb-4">or</p>

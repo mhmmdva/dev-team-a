@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
 
 use App\Models\Category;
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 
@@ -115,8 +117,14 @@ class UserController extends Controller
             if (!is_null($user->photo)) {
                 Storage::delete($user->photo);
             }
-            $photo = $request->file('photo')->store('images/profile');
-            $data['photo'] = $photo;
+            $file = $request->file('photo');
+
+            $fileName = Str::of($file->getClientOriginalName())->replace(' ', '-');
+            $fileExtension = $file->getClientOriginalExtension();
+            $name = $fileName . '-' . now()->format('dmyhis') . '.' . $fileExtension;
+
+            $fileUrl = $file->storeAs('images/profile', $name);
+            $data['photo'] = $fileUrl;
         }
 
         $upload = $user->update($data);
@@ -126,5 +134,23 @@ class UserController extends Controller
         } else {
             return response()->json(['status' => 0, 'msg' => "Something went wrong."]);
         }
+    }
+
+    public function showLikedPosts(User $user)
+    {
+        return view('profile.show-liked-posts', [
+            'user' => $user,
+            'title' => 'Liked Posts',
+            'active' => 'User',
+        ]);
+    }
+
+    public function showBookmarkedPosts(User $user)
+    {
+        return view('profile.show-bookmarked-posts', [
+            'user' => $user,
+            'title' => 'Reading List',
+            'active' => 'User',
+        ]);
     }
 }

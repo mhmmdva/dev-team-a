@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- created post success notification --}}
+    @if (session()->has('success-create-post'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success-create-post') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <h3 style="margin-left: 75px; margin-top: 20px;">Trending</h3>
     <div class="container">
         <div class="row justify-content-start">
@@ -41,8 +49,7 @@
                             <span class="position-relative me-lg-2 p-1 m-0 fs-6">
                                 <a type="button" class=" text-decoration-none text-dark likesIcon"
                                     post_id={{ $post->id }} user_id={{ auth()->user()->id }}>
-                                    <i
-                                        class="text-danger bi {{ auth()->user()->likedPosts()->where('post_id', $post->id)->count() > 0? 'bi-heart-fill': 'bi-heart' }}"></i>
+                                    <i class="text-danger bi {{ auth()->user()->likedPosts()->where('post_id', $post->id)->count() > 0? 'bi-heart-fill': 'bi-heart' }}"></i>
                                 </a>
 
                                 <span type="button" class="likesCount">
@@ -169,9 +176,6 @@
                     console.log('it works!');
 
                     location.reload(true);
-                    // $(".likesIcon").load(location.href + " .likesIcon");
-                    // $(".likesCount").load(location.href + " .likesCount");
-                    // $(".modalLikes{{ $post->id }}").load(location.href + ' .modalLikes{{ $post->id }}');
                 },
                 error: function(xhr) {
                     alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' +
