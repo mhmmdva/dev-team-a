@@ -1,17 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4" style="font-family: 'Open Sans">
         <div class="row justify-content-center">
             <div class="col-md-8">
-
-                {{-- success notification --}}
-                @if (session()->has('success-edit-post'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success-edit-post') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
 
                 <h1 class="mb-3" style="font-weight: 700;">Edit Post</h1>
                 <form method="POST" action="{{ route('posts.update', $post->slug) }}" enctype="multipart/form-data">
@@ -45,6 +37,7 @@
                                 <div class="col-md">
                                     <input id="title" type="text"
                                         class="form-control @error('title') is-invalid @enderror" name="title"
+                                        style="font-size: 30px; font-weight: bold;"
                                         value="{{ old('title') ?? $post->title }}" required autocomplete="title"
                                         placeholder="Write your title..." autofocus>
 

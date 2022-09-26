@@ -26,16 +26,6 @@ class UserServices
 
         $data['password'] = Hash::make($request->get('password'));
 
-        $file = $request->file('photo');
-
-        $fileName = Str::of($file->getClientOriginalName())->replace(' ', '-');
-        $fileExtension = $file->getClientOriginalExtension();
-        $name = $fileName . '-' . now()->format('dmyhis') . '.' . $fileExtension;
-
-        $fileUrl = $file->storeAs('images/profile', $name);
-        $data['photo'] = $fileUrl;
-
-
         $user->update($data);
     }
 }

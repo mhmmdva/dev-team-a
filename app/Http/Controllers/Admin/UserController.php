@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
@@ -116,8 +117,14 @@ class UserController extends Controller
             if (!is_null($user->photo)) {
                 Storage::delete($user->photo);
             }
-            $photo = $request->file('photo')->store('images/profile');
-            $data['photo'] = $photo;
+            $file = $request->file('photo');
+
+            $fileName = Str::of($file->getClientOriginalName())->replace(' ', '-');
+            $fileExtension = $file->getClientOriginalExtension();
+            $name = $fileName . '-' . now()->format('dmyhis') . '.' . $fileExtension;
+
+            $fileUrl = $file->storeAs('images/profile', $name);
+            $data['photo'] = $fileUrl;
         }
 
         $upload = $user->update($data);

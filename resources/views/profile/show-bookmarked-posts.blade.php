@@ -29,7 +29,7 @@
 
                             <p class="text-muted mb-4">Last updated {{ $post->created_at->diffForhumans() }}</p>
                             <h1 class="title card-title">
-                                <a href="{{ route('posts.index')}}" class="text-decoration-none">{{ $post->title }}</a>
+                                <a href="{{ route('posts.show', $post->slug) }}" class="text-decoration-none">{{ $post->title }}</a>
                             </h1>
 
 

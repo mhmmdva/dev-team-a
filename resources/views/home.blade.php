@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- created post success notification --}}
+    @if (session()->has('success-create-post'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success-create-post') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <h3 style="margin-left: 75px; margin-top: 20px;">Trending</h3>
     <div class="container">
         <div class="row justify-content-start">

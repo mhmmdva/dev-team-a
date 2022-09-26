@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+{{-- updated post success notification --}}
+@if (session()->has('success-edit-post'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success-edit-post') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
