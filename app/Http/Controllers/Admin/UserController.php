@@ -10,6 +10,7 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
 
 use App\Models\Category;
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 
@@ -126,5 +127,14 @@ class UserController extends Controller
         } else {
             return response()->json(['status' => 0, 'msg' => "Something went wrong."]);
         }
+    }
+
+    public function showLikedPosts(User $user)
+    {
+        return view('profile.show-liked-posts', [
+            'user' => $user,
+            'title' => 'Liked Posts',
+            'active' => 'User',
+        ]);
     }
 }

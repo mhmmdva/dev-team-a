@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{user:username}/edit-password', 'editPassword')->name('edit-password');
         Route::patch('/{user:username}/update-password', 'updatePassword')->name('update-password');
         Route::post('/{user:username}/change-profile-photo', 'changeProfilePhoto')->name('change-profile-photo');
+        Route::get('/{user:username}/liked-posts', 'showLikedPosts')->name('show-liked-posts');
     });
 
 

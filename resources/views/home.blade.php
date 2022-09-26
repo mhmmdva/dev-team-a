@@ -164,9 +164,6 @@
                     console.log('it works!');
 
                     location.reload(true);
-                    // $(".likesIcon").load(location.href + " .likesIcon");
-                    // $(".likesCount").load(location.href + " .likesCount");
-                    // $(".modalLikes{{$post->id}}").load(location.href + ' .modalLikes{{$post->id}}');
                 },
                 error: function(xhr){
                     alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);

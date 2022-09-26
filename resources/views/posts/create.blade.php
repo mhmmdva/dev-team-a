@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4" style="font-family: 'Open Sans'">
         <div class="row justify-content-center">
             <div class="col-md-8">
 
@@ -42,6 +42,7 @@
                                 <div class="col-md">
                                     <input id="title" type="text"
                                         class="form-control @error('title') is-invalid @enderror" name="title"
+                                        style="font-size: 30px; font-weight: bold;"
                                         value="{{ old('title') }}" required autocomplete="title"
                                         placeholder="Write your title..." autofocus>
 
@@ -81,8 +82,9 @@
 
                                 <div class="col-md">
                                     <select
-                                        class="form-select select2 select2-container--default .select2-selection--single"
-                                        name="tags[]" multiple="multiple">
+                                        class="form-select select2"
+                                        style="width: 100% !important"
+                                        name="tags[]" multiple="multiple" required>
                                         @foreach ($tags as $tag)
                                             <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                         @endforeach
