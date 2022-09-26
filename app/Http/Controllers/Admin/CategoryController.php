@@ -60,7 +60,7 @@ class CategoryController extends Controller
     {
         $data = $categoryRequest->validated();
 
-        //$data['slug'] = str()->slug($data['name']);
+        $data['slug'] = str()->slug($data['name']);
 
         Category::create($data);
 

@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Models\Post;
 use App\Models\Tag;
+
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class PostServices
@@ -16,10 +18,19 @@ class PostServices
         $data['user_id'] = auth()->id();
         $data['slug'] = str()->slug($data['title']);
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('public/images/post');
-            $data['image'] = $image;
-        }
+        $file = $request->file('image');
+
+        $fileName = Str::of($file->getClientOriginalName())->replace(' ', '-');
+        $fileExtension = $file->getClientOriginalExtension();
+        $name = $fileName . '-' . now()->format('dmyhis') . '.' . $fileExtension;
+
+        $fileUrl = $file->storeAs('public/images/post', $name);
+        $data['image'] = $fileUrl;
+
+        // if ($request->hasFile('image')) {
+        //     $image = $request->file('image')->store('public/images/post');
+        //     $data['image'] = $image;
+        // }
 
         $post = Post::create($data);
 
@@ -42,13 +53,22 @@ class PostServices
         $data['user_id'] = auth()->id();
         $data['slug'] = str()->slug($data['title']);
 
-        if ($request->hasFile('image')) {
-            if (!is_null($post->image)) {
-                Storage::delete($post->image);
-            }
-            $image = $request->file('image')->store('public/images/post');
-            $data['image'] = $image;
-        }
+        $file = $request->file('image');
+
+        $fileName = Str::of($file->getClientOriginalName())->replace(' ', '-');
+        $fileExtension = $file->getClientOriginalExtension();
+        $name = $fileName . '-' . now()->format('dmyhis') . '.' . $fileExtension;
+
+        $fileUrl = $file->storeAs('public/images/post', $name);
+        $data['image'] = $fileUrl;
+
+        // if ($request->hasFile('image')) {
+        //     if (!is_null($post->image)) {
+        //         Storage::delete($post->image);
+        //     }
+        //     $image = $request->file('image')->store('public/images/post');
+        //     $data['image'] = $image;
+        // }
 
         $newTags = [];
         foreach ($request->tags as $currentTag) {

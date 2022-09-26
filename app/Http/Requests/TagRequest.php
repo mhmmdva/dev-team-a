@@ -24,7 +24,7 @@ class TagRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string']
+            'name' => ['required', 'string', 'alpha_dash', 'unique:tags,name']
         ];
     }
 }

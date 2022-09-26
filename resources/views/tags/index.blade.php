@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center tag-category">
-        <h1 class="card-title">
-            <a href="{{ route('tags.create') }}" class="title text-decoration-none"> Tags</a>
 
+        <h1 class="title mt-5 text-decoration-none">
+            <a href="{{ route('tags.index') }}" class="links">Tag</a>
         </h1>
     </div>
 
@@ -17,49 +17,31 @@
         </div>
     @endif
 
-    <div class="d-flex flex-wrap flex-md-nowrap justify-content-center align-items-center pt-3 pb-2 mb-3 ">
-        <div class="card mt-3 col-lg-7 shadow  rounded bg-white">
-
-            <div class="row">
-
-                <div class="col-lg-12 d-flex align-items-center ">
-
-                    <div class="card-body cards-category-name tag-category">
-                        {{-- <h2 class="card-title py-2 border-bottom">{{ auth()->user()->name }}</h2> --}}
-                        <h3 class="card-title text-center border-bottom border-2 p-1">All Tags in Websites
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 pt-3 pb-2 mb-3 d-flex justify-content-center align-content-center">
+                <div class="card mt-3 shadow rounded bg-white">
+                    <div class="card-body cards-category-name tag-category ">
+                        <h3 class="card-title text-center border-bottom border-2 p-1">
+                            All Tags in Websites
                         </h3>
 
-                        @forelse ($tags as $tag)
-                            <a href="{{ route('tags.show', $tag->name) }}"
-                                class="tags btn btn-light card-title mt-3  border rounded text-decoration-none">
-                                #{{ $tag->name }}
-                            </a>
-                        @empty
-                            <p>No tags yet.</p>
-                        @endforelse
-
-                        {{-- <div class="mt-3 d-flex justify-content-between">
-
-                            <button type="button" class="likes btn btn-danger position-relative me-lg-5 p-1 m-0 fs-6">
-                                <i class="bi bi-heart"></i> <i class='bx bx-like align-middle'></i> Likes
-                                <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">+22
-                                    <span class="visually-hidden">unread messages</span>
-                                </span>
-                            </button>
-
-                            <button type="button" class="btn btn-outline-warning">
-                                <i class="bi bi-bookmark-star"></i>
-                            </button>
-
-
-                        </div> --}}
-
+                        <div class="col-lg-12">
+                            <div class="d-flex flex-wrap flex-lg-wrap">
+                                @forelse ($tags as $tag)
+                                    <a href="{{ route('tags.show', $tag->slug) }}"
+                                        class="tags btn btn-light card-title mt-3 m-1 border rounded text-decoration-none ">
+                                        #{{ $tag->name }}
+                                    </a>
+                                @empty
+                                    <p>No tags yet.</p>
+                                @endforelse
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {{-- {{ $tags->links() }} --}}
-            </div>
 
+            </div>
         </div>
     </div>
 @endsection

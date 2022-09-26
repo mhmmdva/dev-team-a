@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\TagRequest;
-use App\Models\Category;
-use App\Models\Like;
 use App\Models\Tag;
+use App\Models\Like;
 use App\Models\User;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\TagRequest;
+use App\Http\Controllers\Controller;
 
 class TagController extends Controller
 {
@@ -17,7 +18,7 @@ class TagController extends Controller
 
         $active = 'Tags';
         $categories = Category::all();
-        $tags = Tag::paginate(5);
+        $tags = Tag::get();
         $title = 'Tags';
 
         return view('tags.index', [
@@ -43,7 +44,13 @@ class TagController extends Controller
 
     public function store(TagRequest $tagRequest)
     {
-        Tag::create($tagRequest->validated());
+        $data = $tagRequest->validated();
+
+        $data['slug'] = str()->slug($data['name']);
+
+        //$converted = Str::camel($data);
+
+        Tag::create($data);
 
         return redirect()->route('tags.index')->with('success', 'Successfuly Created New Tag!');
     }
