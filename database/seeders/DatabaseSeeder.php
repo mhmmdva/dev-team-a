@@ -19,13 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(5)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        User::factory(4)->create();
+        // Tag::factory(10)->create();
 
         Category::create([
             'name' => 'Web Design',
@@ -107,8 +103,8 @@ class DatabaseSeeder extends Seeder
             $post->tags()->attach(mt_rand(2, 4));
         });
 
-        // $this->call([
-        //     UserSeeder::class,
-        // ]);
+        $this->call([
+            UserSeeder::class,
+        ]);
     }
 }

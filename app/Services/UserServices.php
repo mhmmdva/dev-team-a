@@ -32,7 +32,7 @@ class UserServices
         $fileExtension = $file->getClientOriginalExtension();
         $name = $fileName . '-' . now()->format('dmyhis') . '.' . $fileExtension;
 
-        $fileUrl = $file->storeAs('public/profile/post', $name);
+        $fileUrl = $file->storeAs('images/profile', $name);
         $data['photo'] = $fileUrl;
 
 
