@@ -75,6 +75,10 @@
                                                 class='bx bx-dollar-circle'></i><span>Create Tag</span></a>
                                     </li>
                                     <li><a class="dropdown-item"
+                                        href="{{ route('profile.show-bookmarked-posts', auth()->user()->username) }}"><i
+                                            class='bx bx-dollar-circle'></i><span>Reading List</span></a>
+                                    </li>
+                                    <li><a class="dropdown-item"
                                         href="{{ route('profile.show-liked-posts', auth()->user()->username) }}"><i
                                             class='bx bx-dollar-circle'></i><span>Liked Posts</span></a>
                                     </li>

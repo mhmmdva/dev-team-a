@@ -137,4 +137,13 @@ class UserController extends Controller
             'active' => 'User',
         ]);
     }
+
+    public function showBookmarkedPosts(User $user)
+    {
+        return view('profile.show-bookmarked-posts', [
+            'user' => $user,
+            'title' => 'Reading List',
+            'active' => 'User',
+        ]);
+    }
 }

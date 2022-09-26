@@ -74,14 +74,6 @@
                                         @endif
                                     </span>
                                 </span>
-                                {{-- <a href="{{ route('bookmark', $post->id) }}" class=" text-decoration-none text-dark">
-                                    <i onclick="changeIconLikes(this)" class="bi bi-heart text-danger" id="likesIcon"></i>
-                                </a>
-
-                                <button type="button" class="bookmark btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">
-                                    Bookmark <i class="bi bi-bookmark-star"></i> 1
-                                </button> --}}
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
@@ -170,7 +162,7 @@
             </div>
         </div>
     @empty
-        <p>No Post Yet.</p>
+        <p class="p-5">No Liked Post Yet</p>
     @endforelse
 @endsection
 
@@ -202,9 +194,6 @@
                     console.log('it works!');
 
                     location.reload(true);
-                    // $(".likesIcon").load(location.href + " .likesIcon");
-                    // $(".likesCount").load(location.href + " .likesCount");
-                    // $(".modalLikes{{$post->id}}").load(location.href + ' .modalLikes{{$post->id}}');
                 },
                 error: function(xhr){
                     alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
