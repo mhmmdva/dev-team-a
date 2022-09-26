@@ -37,11 +37,10 @@ class PostServices
         foreach ($request->tags as $currentTag) {
             $param = [];
             if (Tag::find($currentTag) == null) {
-                $param = ['name' => $currentTag];
+                $param = ['name' => $currentTag, 'slug' => $currentTag];
             } else {
                 $param = ['id' => $currentTag];
             }
-            $param['slug'] = $currentTag;
             $tag = Tag::firstOrCreate($param);
             $post->tags()->attach($tag->id);
         }
@@ -75,7 +74,7 @@ class PostServices
         foreach ($request->tags as $currentTag) {
             $param = [];
             if (Tag::find($currentTag) == null) {
-                $param = ['name' => $currentTag];
+                $param = ['name' => $currentTag, 'slug' => $currentTag];
             } else {
                 $param = ['id' => $currentTag];
             }
