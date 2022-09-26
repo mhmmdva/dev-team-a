@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4">
         <div class="row justify-content-center">
 
             <div class="col-md-8">
@@ -83,6 +83,37 @@
                                             </span>
                                         @enderror
                                     </div>
+                                </div>
+                            </div>
+
+
+                            <div class="d-flex flex-column mb-3 mx-5">
+                                {{-- username --}}
+                                <div class="p-2">
+                                    <label for="username">Username</label>
+                                    <input id="username" type="text"
+                                        class="form-control @error('username') is-invalid @enderror" name="username"
+                                        value="{{ auth()->user()->username }}" autofocus disabled>
+
+                                    @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                {{-- email --}}
+                                <div class="p-2">
+                                    <label for="email">Email</label>
+                                    <input id="email" type="text"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ auth()->user()->email }}" autofocus disabled>
+
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
